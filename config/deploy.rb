@@ -2,14 +2,22 @@ set :application, "parano"
 
 
 #set :svn, '/home/jujudell/bin/svn'
-set :scm_command, '/home/jujudell/bin/svn'
-set :local_scm_command, :default
-set :scm, :subversion
+#set :scm_command, '/home/jujudell/bin/svn'
+#set :local_scm_command, :default
+#set :scm, :subversion
 
-set :deploy_via, :checkout
-set :repository,  "http://OpenSVN.csie.org/paranoshop"
-set :svn_username, "jujudell"
-set :svn_password, "kristina"
+#set :deploy_via, :checkout
+#set :repository,  "http://OpenSVN.csie.org/paranoshop"
+#set :svn_username, "jujudell"
+#set :svn_password, "kristina"
+
+set :scm, :git
+set :branch, "master"
+set :repository, "git@github.com:jujudellago/parano.git"
+set :deploy_via, :remote_cache
+
+
+
 
 set :domain, "jujudellago.com"
 #set :deploy_to, "/home/jujudell/apps/#{application}"
