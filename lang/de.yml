@@ -1,0 +1,190 @@
+beast_welcome: Willkommen auf male+female=egg 
+ 
+forum_title: Forum 
+forums_title: Foren 
+new_forum: Neues Forum 
+edit_forum: Forum bearbeiten 
+save_forum: Forum speichern 
+create_new_forum: Neues Forum erstellen 
+ 
+forum_is_unmoderated: Forum momentan unmoderiert 
+please_be_courteous: Bitte seien Sie höflich 
+ 
+topic_title: Thema 
+Topics_title: Themen 
+edit_topic: Thema bearbeiten 
+new_topic: Nouveau sujet Neues Thema 
+topic_posted_by: "{title} beigeträgt von  {user} @ {date}" 
+topic_replied_by: "{title} Antwort von {user} @ {date}" 
+locked_topic: Dieses Thema ist geschlossen 
+monitoring_topic: "Überwachung des Thema "
+monitor_topic: Suivre ce sujet Thema überwachen 
+post_topic: Poster un sujet Thema beiträgen 
+reply_to_topic: Thema antworten 
+save_reply: Antwort speichern 
+ 
+post_title: Beitrag 
+posts_title: Beiträge 
+edit_post: Beitrag bearbeiten 
+delete_post: Beitrag löschen 
+last_post: Letzer Beitrag 
+recent_posts: Neue Beiträge 
+ 
+voices_title: Teilnehmer 
+monitor_title: Suivi Überwachung 
+users_title:   
+recent_activity: Letzte Tätigkeiten 
+no_recent_activity: Kein Tätigkeit 
+users_online: Online Benutzer 
+change_login: Bitte Ihre Login wechseln 
+gravatar_notice: Um Ihre eigene Avatare auf diesen Foren anzuzeigen, gehen Sie aud {gravatar} und melden Sie sich für ein gratis Avatar 
+change_email_or_password: E-mail oder Passwort wechseln 
+name_or_login: Name / Login 
+reset_password: Passwort zurücksetzen 
+user_profile: Profil des Benutzers 
+update_profile: Profil ändern 
+find_a_user: Einen Benutzer finden 
+display_name_or_login: Name oder Login anmelden 
+users: Benutzer 
+active: Aktiv 
+lurking:  Lauern 
+add_as_moderator: Als Moderator hinzufügen 
+user_is_an_administrator: Benutzer ist Administrator 
+monitored: "Überwachung"
+user_since: Benutzer seit 
+ 
+pages_title: Seiten 
+next_page: Nächste Seite 
+topics_count: "{count} Thema (Themen)" 
+posts_count: "{count} Beitrag (Beiträge)"  
+voices_count: "{count} Teilnehmer"  
+posts_count_found: "{count} Thema(Themen) gefunden"   
+cancel: Abbrechen 
+page: "Seite {page}"  
+ 
+admin_title: Admin 
+title_title: Titel 
+position_title: Stellung 
+description_title: Beschreibung 
+edit_title: bearbeiten 
+moderators_title: Moderatoren 
+views_title: Gelesen 
+settings_title: Einstellungen 
+logout_title: Abmeldung 
+signup_title: Anmeldung 
+login_title: Anmeldung 
+save_title: Speichern 
+password_title: Passwort 
+sticky_title: Persistent 
+locked_title: Gesperrt 
+body_title: Körper 
+display_name_title: Anzeigename 
+identity_url_title: Url Identität 
+website_title:  Website 
+bio_title: Biographie 
+email_title: E-mail 
+basics_title: Grundlagen 
+avatars_title: Avatare 
+search_title: Suchen 
+ 
+by: von 
+save_changes: "Änderungen speichern "
+remember_me: Meine Persönlichen Daten auf diesem PC speichern? 
+delete_conf: "Dies {thing}  für immer löchen ?" 
+email_directions: Entrez votre email, et vous recevrez un nouveau login par email Geben Sie Ihre E-mail und Sie werden ein neues Login auf Ihre E-mail erhalten Enter your email.  Cliquez sur le lien dans l'email, vous pourrez ensuite changer votre mot de passe. Klicken Sie bitte auf den Link im E-mail und dann können Sie Ihr Passwort ändern 
+email_submit: Envoyez moi le lien par email Bitte den Link bei E-mail senden 
+powered_by: Powered by 
+and: und 
+users_monitored_topics: "Themen von {name} überwacht"  
+delete: löschen 
+activation: Bitte den folgenden Link folgen, um Ihr Konto zu aktivieren. 
+without_http: ohne http:// 
+admin_in_parens: '(Admin)'  
+admin_and_moderation: Moderation und Administration 
+remove_moderated_forum: Dieser Benutzer kann die folgende Themen moderieren. Klicken auf den Namen, um ihn zu löschen. 
+remove_user_as_moderator: Moderationrechte löschen. 
+searching_for: suchen nach 
+locked: gesperrt 
+edit:  bearbeiten 
+delete: löschen 
+login: Login 
+once: einmal 
+and_again: noch einmal 
+ 
+ 
+login_field: Der Benutzername sollte mindestens 2 Buchstaben, Ziffern oder (underscores) enthalten
+
+password_field: Bitte das gewünschte Passwort  2 mal eingeben. Das Passwort muss aus mindenstens 5 Schriftzeichen beinhalten. 
+ 
+formatting_help: Formatierungshilfe 
+formatting_bold: "*Fett*"  
+formatting_italics: "_Kursiv_"  
+formatting_blockquote: "bq. <span>(quotes)</span>" 
+formatting_list: "* oder # <span>(lists)</span>" 
+ 
+# additions by Raimonds Simanovskis on 2007-05-11 
+or: order 
+by_user: von {user} 
+in_forum: im {forum} 
+a_few_seconds_ago: Vor ein paar Sekunden 
+1_minute_ago: "Vor einer Minute " 
+minutes_ago: "Vor {minutes} Minuten"  
+1_hour_ago: "Vor einer Stunde " 
+hours_ago: "Vor {hours} Stunden"  
+1_day_ago: "Vor einem Tag " 
+days_ago: "Vor {days} Tagen" 
+ 
+topics: Themen 
+posts: Beiträge 
+topic_count: "{count} Beiträge"  
+post_count: "{count} Beitrag"  
+voice_count: "{count} Mitteilung"  
+post_count_found: "{count} gefundene Beiträge" 
+ 
+comma_locked_topic: ", Dieses Thema ist geschlossen."  
+ 
+view: sehen 
+last: letzte 
+ 
+administrator_title: Administrator 
+moderator_title: Moderator 
+ 
+topic_locked_title: Gesperrtes Thema 
+ 
+recent_posts_in_topic: "Letzte Beiträge in '{topic}'| female+male=egg "  
+ 
+delete_post_conf: "Dieser Beitrag löschen ? Sind Sie sicher ? " 
+delete_topic_conf: "Dieses Thema löschen ? Sind Sie sicher ? " 
+ 
+ 
+feed_language: en-us 
+posts_user_is_monitoring: "Beiträge von {user} überwacht"  
+ 
+view_all: alles 
+ 
+for_user: "für {user}"
+ 
+signup: Anmeldung 
+signup_action: Anmelden 
+login_action: Login 
+ 
+check_email_message: "Bitte diese Email Addresse überprüfen  " 
+post_something_message: "Bitte beitragen Sie etwas ..." 
+error_occured_message: "Ein Fehler ist aufgetreten " 
+post_deleted_message: "Beitrag wurde gelöscht '{title}' "
+logged_out_message: "Sie sind abgemeldet ." 
+invalid_login_message: "Ungültiges Passwort order Benutzername. Bitte probieren Sie nochmals." 
+topic_deleted_message: "Thema '{title}' wurde gelöscht."  
+could_not_find_account_message: "Ich konnte kein Konto mit dieser E-Mail '{email}'. E-Mail Adresse eingegeben zu haben ??? "  
+signup_permanent_error_message: "Ein Fehler ist aufgetreten. {email}'.  Bitte kontrollieren Sie die E-Mail Adresse."
+
+ 
+signup_cannot_sent_message: "Das Anmeldungsformular konnte nicht abgesendet werden. Versuchen Sie es später nochmals " 
+temporary_login_message: "Ein Temporäres Login wurde an '{email}' gesendet " 
+account_activation_message: " Ein Konto Aktivations Mail wurde an '{email}' gesendet." 
+signup_complete_message: "Registrierung wurde erfolgreich abgeschlossen!"  
+settings_saved_message: "Ihre Einstellungen wurden erfolgreich gespeichert!" 
+to_insert_a_picture: "Eine Abbildung einsetzen"
+who_am_i: "Wer bin ich?"
+vinos_presentation: "Ich heisse Vince, ich wohne in der Schweiz, und ich arbeite als Finanz-Controller bei der Verwaltung des Europäischen Zentrums für einen amerikanischen Hersteller von Instrumenten für die Forschung und für medizinische Analyse."
+read_more: "die Folge zu lesen"

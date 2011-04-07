@@ -1,0 +1,635 @@
+Index: acts_as_ferret/init.rb
+===================================================================
+--- acts_as_ferret/init.rb	(revisión: 122)
++++ acts_as_ferret/init.rb	(copia de trabajo)
+@@ -25,3 +25,6 @@
+ 
+ require 'acts_as_ferret'
+ 
++if Object.const_defined?(:Globalize)
++  Globalize::Locale.set_base_language('en-US')
++end
+\ Sin fin-de-línea al final del archivo
+Index: acts_as_ferret/lib/more_like_this.rb
+===================================================================
+--- acts_as_ferret/lib/more_like_this.rb	(revisión: 122)
++++ acts_as_ferret/lib/more_like_this.rb	(copia de trabajo)
+@@ -16,7 +16,7 @@
+         # (i.e. characteristic) terms from this document, and then build a
+         # query from those which is run against the whole index. Which terms
+         # are interesting is decided on variour criteria which can be
+-        # influenced by the given options. 
++        # influenced by the given options.
+         #
+         # The algorithm used here is a quite straight port of the MoreLikeThis class
+         # from Apache Lucene.
+@@ -48,7 +48,7 @@
+             :max_word_length => 0, # Ignore words if greater than this len. Default is not to ignore any words.
+             :max_query_terms => 25,  # maximum number of terms in the query built
+             :max_num_tokens => 5000, # maximum number of tokens to analyze when analyzing contents
+-            :boost => false,      
++            :boost => false,
+             :similarity => DefaultAAFSimilarity.new,
+             :analyzer => Ferret::Analysis::StandardAnalyzer.new,
+             :append_to_query => nil,
+@@ -71,14 +71,14 @@
+           end
+         end
+ 
+-        
++
+         def create_query(priority_queue, options={})
+           query = Ferret::Search::BooleanQuery.new
+           qterms = 0
+           best_score = nil
+           while(cur = priority_queue.pop)
+             term_query = Ferret::Search::TermQuery.new(cur.field, cur.word)
+-            
++
+             if options[:boost]
+               # boost term according to relative score
+               # TODO untested
+@@ -86,7 +86,7 @@
+               term_query.boost = cur.score / best_score
+             end
+             begin
+-              query.add_query(term_query, :should) 
++              query.add_query(term_query, :should)
+             rescue Ferret::Search::BooleanQuery::TooManyClauses
+               break
+             end
+@@ -98,8 +98,8 @@
+           return query
+         end
+ 
+-        
+ 
++
+         # creates a term/term_frequency map for terms from the fields
+         # given in options[:field_names]
+         def retrieve_terms(doc_number, reader, options)
+@@ -129,7 +129,7 @@
+               end
+               puts "have doc: #{doc[:id]} with #{field} == #{content}"
+               token_count = 0
+-              
++
+               ts = options[:analyzer].token_stream(field, content)
+               while token = ts.next
+                 break if (token_count+=1) > max_num_tokens
+@@ -141,23 +141,23 @@
+           term_freq_map
+         end
+ 
+-        # create an ordered(by score) list of word,fieldname,score 
++        # create an ordered(by score) list of word,fieldname,score
+         # structures
+         def create_queue(term_freq_map, reader, options)
+           pq = Array.new(term_freq_map.size)
+-          
++
+           similarity = options[:similarity]
+           num_docs = reader.num_docs
+           term_freq_map.each_pair do |word, tf|
+             # filter out words that don't occur enough times in the source
+             next if options[:min_term_freq] && tf < options[:min_term_freq]
+-            
++
+             # go through all the fields and find the largest document frequency
+             top_field = options[:field_names].first
+             doc_freq = 0
+-            options[:field_names].each do |field_name| 
++            options[:field_names].each do |field_name|
+               freq = reader.doc_freq(field_name, word)
+-              if freq > doc_freq 
++              if freq > doc_freq
+                 top_field = field_name
+                 doc_freq = freq
+               end
+@@ -165,7 +165,7 @@
+             # filter out words that don't occur in enough docs
+             next if options[:min_doc_freq] && doc_freq < options[:min_doc_freq]
+             next if doc_freq == 0 # index update problem ?
+-            
++
+             idf = similarity.idf(doc_freq, num_docs)
+             score = tf * idf
+             pq << FrequencyQueueItem.new(word, top_field, score)
+@@ -174,7 +174,7 @@
+           pq.sort! { |a,b| a.score<=>b.score }
+           return pq
+         end
+-        
++
+         def noise_word?(text, options)
+           len = text.length
+           (
+@@ -185,7 +185,8 @@
+         end
+ 
+         def content_for_field_name(field)
+-          self[field] || self.instance_variable_get("@#{field.to_s}".to_sym) || self.send(field.to_sym)
++          #self[field] || self.instance_variable_get("@#{field.to_s}".to_sym) || self.send(field.to_sym)
++          self.send(field.to_sym)
+         end
+ 
+       end
+Index: acts_as_ferret/lib/class_methods.rb
+===================================================================
+--- acts_as_ferret/lib/class_methods.rb	(revisión: 122)
++++ acts_as_ferret/lib/class_methods.rb	(copia de trabajo)
+@@ -1,18 +1,18 @@
+ module FerretMixin
+   module Acts #:nodoc:
+     module ARFerret #:nodoc:
+-      
++
+       # declare the class level helper methods
+       # which will load the relevant instance methods defined below when invoked
+       module ClassMethods
+-        
+-        # helper that defines a method that adds the given field to a lucene 
++
++        # helper that defines a method that adds the given field to a lucene
+         # document instance
+-        def define_to_field_method(field, options = {})         
+-          options = { 
+-            :store => :no, 
+-            :highlight => :yes, 
+-            :index => :yes, 
++        def define_to_field_method(field, options = {})
++          options = {
++            :store => :no,
++            :highlight => :yes,
++            :index => :yes,
+             :term_vector => :with_positions_offsets,
+             :boost => 1.0 }.update(options)
+           fields_for_ferret[field] = options
+@@ -31,67 +31,68 @@
+         def add_fields(field_config)
+           if field_config.respond_to?(:each_pair)
+             field_config.each_pair do |key,val|
+-              define_to_field_method(key,val)                  
++              define_to_field_method(key,val)
+             end
+           elsif field_config.respond_to?(:each)
+-            field_config.each do |field| 
++            field_config.each do |field|
+               define_to_field_method(field)
+-            end                
++            end
+           end
+         end
+-        
++
+         def reloadable?; false end
+-        
++
+         @@ferret_indexes = Hash.new
+         def ferret_indexes; @@ferret_indexes end
+-        
++
+         @@multi_indexes = Hash.new
+         def multi_indexes; @@multi_indexes end
+-        
+-        # declares a class as ferret-searchable. 
++
++        # declares a class as ferret-searchable.
+         #
+         # options are:
+         #
+         # fields:: names all fields to include in the index. If not given,
+         #   all attributes of the class will be indexed. You may also give
+-        #   symbols pointing to instance methods of your model here, i.e. 
+-        #   to retrieve and index data from a related model. 
++        #   symbols pointing to instance methods of your model here, i.e.
++        #   to retrieve and index data from a related model.
+         #
+-        # additional_fields:: names fields to include in the index, in addition 
++        # additional_fields:: names fields to include in the index, in addition
+         #   to those derived from the db scheme. use if you want to add
+-        #   custom fields derived from methods to the db fields (which will be picked 
+-        #   by aaf). This option will be ignored when the fields option is given, in 
++        #   custom fields derived from methods to the db fields (which will be picked
++        #   by aaf). This option will be ignored when the fields option is given, in
+         #   that case additional fields get specified there.
+         #
+         # index_dir:: declares the directory where to put the index for this class.
+-        #   The default is RAILS_ROOT/index/RAILS_ENV/CLASSNAME. 
++        #   The default is RAILS_ROOT/index/RAILS_ENV/CLASSNAME.
+         #   The index directory will be created if it doesn't exist.
+         #
+         # single_index:: set this to true to let this class use a Ferret
+         # index that is shared by all classes having :single_index set to true.
+-        # :store_class_name is set to true implicitly, as well as index_dir, so 
++        # :store_class_name is set to true implicitly, as well as index_dir, so
+         # don't bother setting these when using this option. the shared index
+         # will be located in index/<RAILS_ENV>/shared .
+         #
+         # store_class_name:: to make search across multiple models useful, set
+-        # this to true. the model class name will be stored in a keyword field 
++        # this to true. the model class name will be stored in a keyword field
+         # named class_name
+         #
+         # ferret_options may be:
+         # or_default:: - whether query terms are required by
+         #   default (the default, false), or not (true)
+-        # 
++        #
+         # analyzer:: the analyzer to use for query parsing (default: nil,
+         #   wihch means the ferret StandardAnalyzer gets used)
+         #
+         def acts_as_ferret(options={}, ferret_options={})
+-          configuration = { 
++          configuration = {
+             :index_dir => "#{FerretMixin::Acts::ARFerret::index_dir}/#{self.name.underscore}",
+             :store_class_name => false,
+             :single_index => false,
++            :localized => false
+           }
+           ferret_configuration = {
+-            :or_default => false, 
++            :or_default => false,
+             :handle_parse_errors => true,
+             :default_field => '*'
+             #:max_clauses => 512,
+@@ -101,33 +102,52 @@
+           configuration.update(options) if options.is_a?(Hash)
+ 
+           # apply appropriate settings for shared index
+-          if configuration[:single_index] 
+-            configuration[:index_dir] = "#{FerretMixin::Acts::ARFerret::index_dir}/shared" 
+-            configuration[:store_class_name] = true 
++          if configuration[:single_index]
++            configuration[:index_dir] = "#{FerretMixin::Acts::ARFerret::index_dir}/shared"
++            configuration[:store_class_name] = true
+           end
++
++          if configuration[:localized]
++            msg = <<-END
++             The Globalize plugin is required for this functionality.
++
++             You are getting this exception because:
++
++             1. The Globalize plugin (http://www.globalize-rails.org/) must be installed
++             2. The globalize plugin should come *before* acts_as_ferret in the load path
++             (use config.plugins in your environment.rb to specify plugin order).
++             3. The globalize base language must be set (e.g. Locale.set_base_language('en-US'))
++             before this point is reached. You can set this at the bottom of the globalize plugin\'s init.rb
++             or alternatively at the beginning of the acts_as_ferret\'s plugin\'s init.rb.
++             4. There is no data in the globalize language/country tables. (Run rake globalize:setup)
++            END
++            raise msg and return unless Object.const_defined?(:Globalize) && ::Globalize::Locale.base_language
++            configuration[:index_dir_proc] = Proc.new { "#{configuration[:index_dir]}_#{::Globalize::Locale.active? ? ::Globalize::Locale.active.language.code : ::Globalize::Locale.base_language.code}" }
++          end
++
+           ferret_configuration.update(ferret_options) if ferret_options.is_a?(Hash)
+           # these properties are somewhat vital to the plugin and shouldn't
+           # be overwritten by the user:
+           ferret_configuration.update(
+ 
+             :key               => (configuration[:single_index] ? [:id, :class_name] : :id),
+-            :path              => configuration[:index_dir],
++            :path              => (configuration[:localized] ? configuration[:index_dir_proc] : configuration[:index_dir]),
+             :auto_flush        => true,
+             :create_if_missing => true
+           )
+-          
++
+           class_eval <<-EOV
+               include FerretMixin::Acts::ARFerret::InstanceMethods
+ 
+ 
+               after_create :ferret_create
+               after_update :ferret_update
+-              after_destroy :ferret_destroy      
+-              
+-              cattr_accessor :fields_for_ferret   
++              after_destroy :ferret_destroy
++
++              cattr_accessor :fields_for_ferret
+               cattr_accessor :configuration
+               cattr_accessor :ferret_configuration
+-              
++
+               @@fields_for_ferret = Hash.new
+               @@configuration = configuration
+               @@ferret_configuration = ferret_configuration
+@@ -140,47 +160,51 @@
+               end
+ 
+             EOV
+-          FerretMixin::Acts::ARFerret::ensure_directory configuration[:index_dir]
++          FerretMixin::Acts::ARFerret::ensure_directory class_index_dir
+ 
+           # now that all fields have been added, we can initialize the default
+           # field list to be used by the query parser.
+           # It will include all content fields *not* marked as :untokenized.
+-          # This fixes the otherwise failing CommentTest#test_stopwords 
+-          ferret_configuration[:default_field] = fields_for_ferret.keys.select do |f| 
++          # This fixes the otherwise failing CommentTest#test_stopwords
++          ferret_configuration[:default_field] = fields_for_ferret.keys.select do |f|
+             fields_for_ferret[f][:index] != :untokenized
+           end
+           logger.debug "set default field list to #{ferret_configuration[:default_field].inspect}"
+         end
+-        
++
+         def class_index_dir
+-          configuration[:index_dir]
++          if configuration[:localized]
++            configuration[:index_dir_proc].call
++          else
++            configuration[:index_dir]
++          end
+         end
+-        
++
+         # rebuild the index from all data stored for this model.
+         # This is called automatically when no index exists yet.
+         #
+-        # TODO: the automatic index initialization only works if 
+-        # every model class has it's 
++        # TODO: the automatic index initialization only works if
++        # every model class has it's
+         # own index, otherwise the index will get populated only
+         # with instances from the first model loaded
+         #
+-        # When calling this method manually, you can give any additional 
+-        # model classes that should also go into this index as parameters. 
++        # When calling this method manually, you can give any additional
++        # model classes that should also go into this index as parameters.
+         # Useful when using the :single_index option.
+         # Note that attributes named the same in different models will share
+         # the same field options in the shared index.
+         def rebuild_index(*models)
+           models << self
+           # default attributes for fields
+-          fi = Ferret::Index::FieldInfos.new(:store => :no, 
+-                                             :index => :yes, 
++          fi = Ferret::Index::FieldInfos.new(:store => :no,
++                                             :index => :yes,
+                                              :term_vector => :no,
+                                              :boost => 1.0)
+           # primary key
+-          fi.add_field(:id, :store => :yes, :index => :untokenized) 
++          fi.add_field(:id, :store => :yes, :index => :untokenized)
+           # class_name
+           if configuration[:store_class_name]
+-            fi.add_field(:class_name, :store => :yes, :index => :untokenized) 
++            fi.add_field(:class_name, :store => :yes, :index => :untokenized)
+           end
+           # collect field options from all models
+           fields = {}
+@@ -189,13 +213,12 @@
+           end
+           logger.debug("class #{self.name}: fields for index: #{fields.keys.join(',')}")
+           fields.each_pair do |field, options|
+-            fi.add_field(field, { :store => :no, 
+-                                  :index => :yes }.update(options)) 
++            fi.add_field(field, { :store => :no,
++                                  :index => :yes }.update(options))
+           end
+-          fi.create_index(ferret_configuration[:path])
++          fi.create_index(class_index_dir)
+ 
+-          index = Ferret::Index::Index.new(ferret_configuration.dup.update(:auto_flush => false))
+-          #index = Ferret::Index::Index.new(ferret_configuration.dup.update(:auto_flush => true))
++          index = Ferret::Index::Index.new(ferret_configuration.dup.update(:path => class_index_dir, :auto_flush => false))
+           batch_size = 1000
+           models.each do |model|
+             # index in batches of 1000 to limit memory consumption (fixes #24)
+@@ -221,43 +244,43 @@
+             index.close #if key =~ /#{self.name}/
+           end
+           @@multi_indexes = Hash.new
+-        end                                                            
+-        
++        end
++
+         # Retrieve the Ferret::Index::Index instance for this model class.
+-        # 
++        #
+         # Index instances are stored in a hash, using the index directory
+         # as the key. So model classes sharing a single index will share their
+         # Index object, too.
+         def ferret_index
+           ferret_indexes[class_index_dir] ||= create_index_instance
+-        end 
+-        
++        end
++
+         # creates a new Index::Index instance. Before that, a check is done
+         # to see if the index exists in the file system. If not, index rebuild
+         # from all model data retrieved by find(:all) is triggered.
+         def create_index_instance
+           rebuild_index unless File.file? "#{class_index_dir}/segments"
+-          Ferret::Index::Index.new(ferret_configuration)
++          Ferret::Index::Index.new(ferret_configuration.merge(:path => class_index_dir))
+         end
+-        
+-        # Finds instances by contents. Terms are ANDed by default, can be circumvented 
+-        # by using OR between terms. 
++
++        # Finds instances by contents. Terms are ANDed by default, can be circumvented
++        # by using OR between terms.
+         # options:
+         # offset::      first hit to retrieve (useful for paging)
+         # limit::       number of hits to retrieve, or :all to retrieve
+         #               all results
+-        # models::      only for single_index scenarios: a list of other Model classes to 
++        # models::      only for single_index scenarios: a list of other Model classes to
+         #               include in this search.
+         #
+         # find_options is a hash passed on to active_record's find when
+         # retrieving the data from db, useful to i.e. prefetch relationships.
+         #
+-        # this method returns a SearchResults instance, which really is an Array that has 
++        # this method returns a SearchResults instance, which really is an Array that has
+         # been decorated with a total_hits accessor that delivers the total
+         # number of hits (including those not fetched because of a low num_docs
+         # value).
+-        # Please keep in mind that the number of total hits might be wrong if you specify 
+-        # both ferret options and active record find_options that somehow limit the result 
++        # Please keep in mind that the number of total hits might be wrong if you specify
++        # both ferret options and active record find_options that somehow limit the result
+         # set (e.g. :num_docs and some :conditions).
+         def find_by_contents(q, options = {}, find_options = {})
+           # handle shared index
+@@ -270,25 +293,25 @@
+           end
+           result = []
+           begin
+-            # TODO: in case of STI AR will filter out hits from other 
++            # TODO: in case of STI AR will filter out hits from other
+             # classes for us, but this
+             # will lead to less results retrieved --> scoping of ferret query
+             # to self.class is still needed.
+             # from the ferret ML (thanks Curtis Hatter)
+             # > I created a method in my base STI class so I can scope my query. For scoping
+             # > I used something like the following line:
+-            # > 
++            # >
+             # > query << " role:#{self.class.eql?(Contents) '*' : self.class}"
+-            # > 
++            # >
+             # > Though you could make it more generic by simply asking
+             # > "self.descends_from_active_record?" which is how rails decides if it should
+             # > scope your "find" query for STI models. You can check out "base.rb" in
+             # > activerecord to see that.
+             # but maybe better do the scoping in find_id_by_contents...
+             if results.any?
+-              conditions = combine_conditions([ "#{table_name}.#{primary_key} in (?)", results.keys ], 
++              conditions = combine_conditions([ "#{table_name}.#{primary_key} in (?)", results.keys ],
+                                               find_options[:conditions])
+-              result = self.find(:all, 
++              result = self.find(:all,
+                                  find_options.merge(:conditions => conditions))
+               # correct result size if the user specified conditions
+               total_hits = result.length if find_options[:conditions]
+@@ -304,10 +327,10 @@
+           end
+           # set scores
+           result.each { |r| r.ferret_score = results[r.id.to_s].last }
+-          
++
+           logger.debug "Query: #{q}\nResult ids: #{results.keys.inspect},\nresult: #{result}"
+           return SearchResults.new(result, total_hits)
+-        end 
++        end
+ 
+         # determine all field names in the shared index
+         def single_index_field_names(models)
+@@ -317,7 +340,7 @@
+                 (searcher.reader.send(:get_field_names) - ['id', 'class_name']).to_a
+               else
+                 puts <<-END
+-  unable to retrieve field names for class #{self.name}, please 
++  unable to retrieve field names for class #{self.name}, please
+   consider naming all indexed fields in your call to acts_as_ferret!
+                 END
+                 models.map { |m| m.content_columns.map { |col| col.name } }.flatten
+@@ -325,8 +348,8 @@
+           )
+ 
+         end
+-        
+ 
++
+         # weiter: checken ob ferret-bug, dass wir die queries so selber bauen
+         # muessen - liegt am downcasen des qparsers ? - gucken ob jetzt mit
+         # ferret geht (content_cols) und dave um zugriff auf qp bitten, oder
+@@ -336,12 +359,12 @@
+           result = []
+ 
+           unless options[:models] == :all # search needs to be restricted by one or more class names
+-            options[:models] ||= [] 
++            options[:models] ||= []
+             # add this class to the list of given models
+             options[:models] << self unless options[:models].include?(self)
+-            # keep original query 
++            # keep original query
+             original_query = q
+-            
++
+             # work around ferret bug in #process_query (doesn't ensure the
+             # reader is open)
+             ferret_index.synchronize do
+@@ -367,12 +390,12 @@
+         end
+         protected :single_index_find_by_contents
+ 
+-        # return the total number of hits for the given query 
++        # return the total number of hits for the given query
+         def total_hits(q, options={})
+           ferret_index.search(q, options).total_hits
+         end
+ 
+-        # Finds instance model name, ids and scores by contents. 
++        # Finds instance model name, ids and scores by contents.
+         # Useful if you want to search across models
+         # Terms are ANDed by default, can be circumvented by using OR between terms.
+         #
+@@ -384,13 +407,13 @@
+         #   result << (Model3.find_id_by_contents query)
+         #   result.flatten!
+         #   result.sort! {|element| element[:score]}
+-        #   # Figure out for yourself how to retreive and present the data from modelname and id 
++        #   # Figure out for yourself how to retreive and present the data from modelname and id
+         # end
+         #
+         # Note that the scores retrieved this way aren't normalized across
+         # indexes, so that the order of results after sorting by score will
+         # differ from the order you would get when running the same query
+-        # on a single index containing all the data from Model1, Model2 
++        # on a single index containing all the data from Model1, Model2
+         # and Model
+         #
+         # options are:
+@@ -402,11 +425,11 @@
+         # a block can be given too, it will be executed with every result:
+         # find_id_by_contents(q, options) do |model, id, score|
+         #    id_array << id
+-        #    scores_by_id[id] = score 
++        #    scores_by_id[id] = score
+         # end
+         # NOTE: in case a block is given, the total_hits value will be returned
+         # instead of the result list!
+-        # 
++        #
+         def find_id_by_contents(q, options = {})
+           deprecated_options_support(options)
+ 
+@@ -426,7 +449,7 @@
+           logger.debug "id_score_model array: #{result.inspect}"
+           return block_given? ? total_hits : result
+         end
+-        
++
+         # requires the store_class_name option of acts_as_ferret to be true
+         # for all models queried this way.
+         #
+@@ -441,11 +464,11 @@
+           end
+           SearchResults.new(result, total_hits)
+         end
+-        
++
+         # returns an array of hashes, each containing :class_name,
+         # :id and :score for a hit.
+         #
+-        # if a block is given, class_name, id and score of each hit will 
++        # if a block is given, class_name, id and score of each hit will
+         # be yielded, and the total number of hits is returned.
+         #
+         def id_multi_search(query, additional_models = [], options = {})
+@@ -464,14 +487,18 @@
+           end
+           return block_given? ? total_hits : result
+         end
+-        
++
+         # returns a MultiIndex instance operating on a MultiReader
+         def multi_index(model_classes)
+           model_classes.sort! { |a, b| a.name <=> b.name }
+           key = model_classes.inject("") { |s, clazz| s << clazz.name }
+           multi_config = ferret_configuration.dup
+           multi_config.delete :default_field  # we don't want the default field list of *this* class for multi_searching
+-          @@multi_indexes[key] ||= MultiIndex.new(model_classes, multi_config)
++          if Object.const_defined?(:Globalize) && configuration[:localized]
++            @@multi_indexes["#{key}_#{Globalize::Locale.active.language.code}"] ||= MultiIndex.new(model_classes, multi_config.merge(:path => class_index_dir))
++          else
++            @@multi_indexes[key] ||= MultiIndex.new(model_classes, multi_config.merge(:path => class_index_dir))
++          end
+         end
+ 
+         private
+@@ -498,7 +525,7 @@
+         end
+ 
+       end
+-      
++
+     end
+   end
+ end

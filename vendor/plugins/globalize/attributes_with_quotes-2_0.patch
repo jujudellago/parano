@@ -1,0 +1,100 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+ <title>#184: attributes_with_quotes-2_0.patch - Globalize - Trac</title><link rel="start" href="/trac/globalize/wiki" /><link rel="search" href="/trac/globalize/search" /><link rel="help" href="/trac/globalize/wiki/TracGuide" /><link rel="stylesheet" href="/trac/globalize/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/trac/globalize/chrome/redirect/css/redirect.css" type="text/css" /><link rel="stylesheet" href="/trac/globalize/chrome/common/css/diff.css" type="text/css" /><link rel="stylesheet" href="/trac/globalize/chrome/common/css/code.css" type="text/css" /><link rel="icon" href="/trac/globalize/chrome/common/trac.ico" type="image/x-icon" /><link rel="shortcut icon" href="/trac/globalize/chrome/common/trac.ico" type="image/x-icon" /><link rel="up" href="/trac/globalize/ticket/184" title="Ticket #184" /><link rel="alternate" href="/trac/globalize/attachment/ticket/184/attributes_with_quotes-2_0.patch?format=raw" title="Original Format" type="text/x-diff; charset=iso-8859-15" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="/trac/globalize/chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="http://www.globalize-rails.org"><img src="/logo-globalize.gif" width="150" height="130" alt="Globalize Rails" /></a><hr /></div>
+
+<form id="search" action="/trac/globalize/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="/trac/globalize/login">Login</a></li><li><a href="/trac/globalize/register">Register</a></li><li><a href="/trac/globalize/settings">Settings</a></li><li><a accesskey="6" href="/trac/globalize/wiki/TracGuide">Help/Guide</a></li><li class="last"><a href="/trac/globalize/about">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="first"><a accesskey="1" href="/trac/globalize/wiki">Wiki</a></li><li><a accesskey="2" href="/trac/globalize/timeline">Timeline</a></li><li><a accesskey="3" href="/trac/globalize/roadmap">Roadmap</a></li><li><a href="/trac/globalize/browser">Browse Source</a></li><li><a href="/trac/globalize/report">View Tickets</a></li><li class="last"><a accesskey="4" href="/trac/globalize/search">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav"></div>
+
+<div id="content" class="attachment">
+
+
+ <h1><a href="/trac/globalize/ticket/184">Ticket #184</a>: attributes_with_quotes-2_0.patch</h1>
+ <table id="info" summary="Description"><tbody><tr>
+   <th scope="col">
+    File attributes_with_quotes-2_0.patch, 1.5 kB 
+    (added by artemv,  3 months ago)
+   </th></tr><tr>
+   <td class="message"></td>
+  </tr>
+ </tbody></table>
+ <div id="preview">
+   
+
+
+<div class="diff"><ul class="entries"><li class="entry">
+  <h2>lib/globalize/localization/db_translate.rb</h2>
+  <table class="inline" summary="Differences" cellspacing="0">
+   <colgroup><col class="lineno" /><col class="lineno" /><col class="content" /></colgroup>
+   <thead><tr>
+    <th>old</th>
+    <th>new</th>
+    <th>&nbsp;</th>
+   </tr></thead><tbody><tr><th>672</th><th>672</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; # an SQL statement.</span>&nbsp;</td></tr><tr><th>673</th><th>673</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; # REDEFINED to include only untranslated fields. We don't want to overwrite the</span>&nbsp;</td></tr><tr><th>674</th><th>674</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; # base translation with other translations.</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>675</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp; &nbsp; def attributes_with_quotes(include_primary_key = true<del>)</del>&nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>675</th><td class="r">&nbsp; &nbsp; &nbsp; &nbsp; def attributes_with_quotes(include_primary_key = true<ins>, include_readonly_attributes = true)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </ins>&nbsp;</td></tr></tbody><tbody><tr><th>676</th><th>676</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if Locale.base?</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>677</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <del></del>attributes.inject({}) do |quoted, (name, value)|&nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>677</th><td class="r">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>quoted = </ins>attributes.inject({}) do |quoted, (name, value)|&nbsp;</td></tr></tbody><tbody><tr><th>678</th><th>678</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if column = column_for_attribute(name)</span>&nbsp;</td></tr><tr><th>679</th><th>679</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quoted[name] = quote_value(value, column) unless !include_primary_key &amp;&amp; column.primary</span>&nbsp;</td></tr><tr><th>680</th><th>680</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; end</span>&nbsp;</td></tr><tr><th>681</th><th>681</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quoted</span>&nbsp;</td></tr><tr><th>682</th><th>682</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; end</span>&nbsp;</td></tr><tr><th>683</th><th>683</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>684</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <del></del>attributes.inject({}) do |quoted, (name, value)|&nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>684</th><td class="r">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>quoted = </ins>attributes.inject({}) do |quoted, (name, value)|&nbsp;</td></tr></tbody><tbody><tr><th>685</th><th>685</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if !self.class.globalize_facets_hash.has_key?(name) &amp;&amp;</span>&nbsp;</td></tr><tr><th>686</th><th>686</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; column = column_for_attribute(name)</span>&nbsp;</td></tr><tr><th>687</th><th>687</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quoted[name] = quote_value(value, column) unless !include_primary_key &amp;&amp; column.primary</span>&nbsp;</td></tr></tbody>
+     <tbody class="skipped">
+      <tr><th>&hellip;</th><th>&hellip;</th><td>&nbsp;</td></tr>
+     </tbody><tbody><tr><th>689</th><th>689</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quoted</span>&nbsp;</td></tr><tr><th>690</th><th>690</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; end</span>&nbsp;</td></tr><tr><th>691</th><th>691</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; end</span>&nbsp;</td></tr></tbody><tbody class="add"><tr class="first last"><th>&nbsp;</th><th>692</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; include_readonly_attributes ? quoted : remove_readonly_attributes(quoted)</ins>&nbsp;</td></tr></tbody><tbody><tr><th>692</th><th>693</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; end</span>&nbsp;</td></tr><tr><th>693</th><th>694</th><td class="l"><span></span>&nbsp;</td></tr><tr><th>694</th><th>695</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; def create_or_update</span>&nbsp;</td></tr></tbody>
+  </table>
+ </li>
+</ul></div>
+
+ </div>
+ 
+
+
+</div>
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="/trac/globalize/attachment/ticket/184/attributes_with_quotes-2_0.patch?format=raw">Original Format</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/trac/globalize/chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="/trac/globalize/about"><strong>Trac 0.10.4</strong></a><br />
+  By <a href="http://www.edgewall.org/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Visit Liquid Concept website at <a href="http://www.liquid-concept.ch/">http://www.liquid-concept.ch/</a>
+ </p>
+</div>
+
+
+
+ </body>
+</html>
+

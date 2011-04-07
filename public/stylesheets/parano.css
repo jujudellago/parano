@@ -1,0 +1,174 @@
+@charset "utf-8";
+/*
+Name of Template : Surreal
+Author : Roshan
+URL : www.ramblingsoul.com
+License : Creative Commons Attribution-Noncommercial-Share Alike 3.0 License.
+Note : Do not remove the credit links from the template
+*/
+
+* {	margin: 0px; padding: 0px;}
+body {/*background:url(/images/bg_damier.gif) repeat;*/ 
+	background:#000;
+	font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; color:#666666;}
+.clear {clear:both;}
+#wrap { width:923px; margin:25px auto 25px auto;opacity: 1.0; border:3px solid #000;}
+#wrap #header #sitename {color: #666; font-family: Helvetica, "Times New Roman", Times, serif;
+font-size: 28px; font-weight: normal;	display: block;	padding-top: 60px;	text-align: center; padding-right: 50px;}
+#wrap #header #sitedesc {color: #666; font-family: Verdana, "Times New Roman", Times, serif;
+font-size: 28px; font-weight: normal;	display: block;		text-align: center; padding-right: 50px;}
+#sitename a, #sitename a:visited, #sitename a:active{color:#666; text-decoration:none;font-size: 48px; }
+#sitename a:hover{color:#dfe6ee; text-decoration:none;}
+#header {background:url(/images/header_parano.png) no-repeat; height:236px;opacity:1.0;}
+
+#page {
+	background:url(/images/wrapbgd.png) repeat-y;
+	margin-top: -20px;
+    padding: 15px 3px;
+	}
+#page #menu {float:left;
+/*	 background:url(/images/sidemenu.gif) no-repeat; */
+	width:269px; }
+#page #content {margin:20px 0px 0px 265px; padding:0px 20px 0px 5px;}
+#content p {line-height:22px; margin:0px 0px 25px 0px;}
+#content h2 {font-family:Helvetica, "Times New Roman", Times, serif; font-weight:normal; font-size:26px; display:block; margin-bottom:20px;}
+
+
+
+#content a:active { color:#99CC00;}
+#content a:hover {color:yellow; text-decoration:none;}
+#content h2 .seo {font-family:Helvetica, "Times New Roman", Times, serif;display:block; text-align:right; font-size:10px; color:#999999; background:#efefef; padding:3px;}
+#content blockquote {display:block; padding:5px; margin:10px; text-align:center; font-family:Helvetica, "Times New Roman", Times, serif; color:#4c7000; background:#e8e8e8; border-top:dashed 1px #666666; border-bottom:dashed 1px #666666;}
+#content blockquote p {margin:0px;}
+#content blockquote cite {color:#000000; display:block; text-align:right; padding:5px; border-top:solid 1px  #8ba7ce;}
+#content img.border {background:#efefef; margin:5px; padding:5px; border:solid 1px #999999;}
+#content .alignleft {float:left;}
+#content .alignright {float:right;}
+#content .postmetadata {display:block; padding:3px; background: #d1d1d1;}
+
+#content ul {list-style:square;  padding:5px; margin:10px 10px 10px 20px;}
+#content li {padding:5px; margin-bottom:10px;}
+#content ol {padding:5px; margin:10px 10px 10px 20px;}
+
+#browse { 
+	background:url(/images/sidemenu.gif) repeat; 
+/*	background:#000;*/
+/*	border-bottom:4px solid #3AF907;*/
+	padding:40px 5px 10px 5px;
+}
+#browse div {text-align:center;}
+#browse .subhead{font-family:Helvetica, "Times New Roman", Times, serif; font-weight:normal; padding-left:25px; font-size:26px;  display:block; margin-bottom:35px;
+
+	padding-bottom: 10px;
+
+}
+#browse .categoryhead {font-family:Verdana, "Times New Roman", Times, serif; font-weight:normal; padding:5px; font-size:22px; display:block; border-bottom:solid 1px #ffffff;}
+#browse ul {list-style:none;}
+.browsecat {float:left; width:17%; padding:5px 6px 8px 6px; margin-left:10px; border:none; }
+#browse li.brand{height:96px; border:none; padding-bottom:10px; }
+#browse li.brand img{ opacity:0.8;}
+/*#browse li.brand:hover{ opacity:1.0;}*/
+#browse li.brand a{
+	 padding:5px 5px 5px 5px;
+}
+#browse li.brand a , #browse li.brand a:hover, #browse li.brand a:active { font-size:0.8em;display:block; height:96px; text-decoration:none; color:#fff;}
+
+#menu h2 {display:block;  border-bottom:solid 1px #f7f7f7; padding:5px; font-family:Helvetica, "Times New Roman", Times, serif; font-size:22px; font-weight:normal;}
+#wrap #page #menu #sidemenu { padding:5px 45px 0px 40px;	display: block;}
+#sidemenu ul { display:block;list-style:none;}
+#sidemenu li {display:block; height:26px; border-top:thin 1px #FFFFff;}
+#sidemenu a, #sidemenu a:visited, #sidemenu a:active {display:block; height:20px; padding:5px 5px 0px 5px; color:#efefef; text-decoration:none; border-bottom:solid 1px #DFCD95;}
+#sidemenu a:hover{background:#dfe6ee;color:#666;}
+#sidemenu .active a,#sidemenu .active a:visited, #sidemenu .active a:active, #sidemenu .active a:hover {background:#dfe6ee;color:#666;}
+
+#footer {
+	background: url("/images/footer.png") repeat-y scroll center bottom transparent;
+    height: 64px;
+    margin-top: -15px;
+    text-align: center;
+    width: 923px;
+}
+#footercontent {margin:15px; border-top:solid 1px #bbc1cd; padding-top:15px;}
+#footer a, #footer a:visited, #footer a:active {text-decoration:none;}
+#footer #credit {font-size:10px;}
+
+#content .clear2 {clear:right; width:90%;}
+.hide {display:none;}
+#content table {margin:10px; width:500px; border:solid 1px #9bacd6;}
+#content th { padding:5px 5px 5px 5px; color:#4c7000; font-weight:bold; text-align:center; border-bottom:1px solid #9bacd6;}
+#content td {border-bottom:1px solid  ; padding:5px 5px 5px 5px; border-right:1px solid #e1e9fd;}
+
+.relatedLinks{
+	padding-top:30px;
+}
+.relatedLinks h3{
+	 border-bottom:solid 1px #f7f7f7; padding:5px; font-size:22px; font-weight:normal;
+}
+
+.entry {
+margin-top:0;
+padding-bottom:15px;
+margin-bottom:5px;
+}
+
+.entrybody img.title {
+border:1px solid #ddd;
+float:left;
+margin-right:15px;
+margin-bottom:15px;
+}
+
+.entrybody ,.contentText{
+background:#000 url(/images/db_first_bg.gif) left top no-repeat;
+margin:0;
+padding:16px;
+}
+
+.entrybody p {
+text-align:left;
+margin-bottom:15px;
+}
+h3.entrytitle,h3, h2 {
+font-size:160%;
+font-weight:400;
+margin:0;
+padding:0;
+}
+.entrybody h4{
+	padding-bottom:10px;
+}
+#gmap_full{
+	height:500px;
+}
+.sub_div_header{
+	padding-bottom:25px;
+	font-size:1em;
+}
+
+h3.entrytitle a,h3.entrytitle a:visited,h3 a {
+color:#fff;
+text-decoration:none;
+}
+
+.entrybody ul,.entrybody ol {
+margin-top:10px;
+margin-bottom:10px;
+margin-left:30px;
+}
+
+.entrybody li {
+padding-top:1px;
+padding-bottom:1px;
+}
+
+.entrymeta {
+margin-top:3px;
+margin-bottom:3px;
+color:#81969A;
+}
+.white{
+	background:#fff;
+	display:block;
+	overflow:none;
+}
+

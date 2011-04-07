@@ -1,0 +1,22 @@
+--- 
+javascripts: 
+- base: 
+  - effects_core
+  - effects_slide
+  - supersized_3
+  - application
+  - lowpro
+  - effects
+  - dragdrop
+  - controls
+#  - previewbubble/previewbubble
+#  - reflection
+  
+stylesheets: 
+- parano:
+  - supersized 
+  - flash
+  - parano
+  - system
+  - fancytable
+  - lightview/css/lightview

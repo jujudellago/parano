@@ -1,0 +1,202 @@
+# French translation by Guillaume Moigneu -Niels- 
+# Feel free to improve this first version
+# 07-05-22
+beast_title: "Forum Rails"
+beast_sidebar_title: "Qu'est ce que Beast?"
+beast_sidebar_body: Un forum petit et léger programmé Rails avec un nom effrayant et un objectif d'environ 500 lignes de code au final.
+beast_welcome: Bienvenu sur Beast
+
+forum_title: Forum
+forums_title: Forums
+new_forum: Nouveau forum
+edit_forum: Editer le forum
+save_forum: Sauvegarder le forum
+create_new_forum: Créer un nouveau forum
+
+forum_is_unmoderated: Ce forum n'est pas encore modéré.
+please_be_courteous: Merci d'être courtois.
+
+topic_title: Sujet
+Topics_title: Sujets
+edit_topic: Editer le sujet
+new_topic: Nouveau sujet
+topic_posted_by: "{title} posté par {user} @ {date}"
+topic_replied_by: "{title} répondu par {user} @ {date}"
+locked_topic: Le sujet est verrouillé
+monitoring_topic: Sujet surveillé
+monitor_topic: Surveiller le sujet
+post_topic: Poster un sujet
+reply_to_topic: Répondre au sujet
+save_reply: Sauvegarder la réponse
+
+post_title: Message
+posts_title: Messages
+edit_post: Editer le message
+delete_post: Supprimer le message
+last_post: Dernier message
+recent_posts: Messages récents
+
+voices_title: Participants
+monitor_title: Surveiller
+users_title: Utilisateurs
+recent_activity: Activité récente
+no_recent_activity: Aucune activité récente
+users_online: Utilisateurs en ligne
+change_login: Merci de changer votre login
+gravatar_notice: Pour avoir votre avatar sur ce forum, visitez {gravatar} et enregistrez vous pour un avatar gratuit.
+change_email_or_password: Changez l'email ou le mot de passe
+name_or_login: Nom / Login
+reset_password: Réinitialiser le mot de passe
+user_profile: Profil utilisateur
+update_profile: Mettre à jour le profil
+find_a_user: Trouver un utilisateur
+display_name_or_login: Nom ou login
+users: utilisateurs
+active: actif
+lurking: muet
+add_as_moderator: Ajouté en tant que modérateur
+user_is_an_administrator: L'utilisateur est un administrateur
+monitored: surveillé
+user_since: Utilisateur depuis
+
+pages_title: Pages
+next_page: Page suivante
+topics_count: "{count} sujet(s)"
+posts_count: "{count} messages(s)"
+voices_count: "{count} participant(s)"
+posts_count_found: "{count} message(s) trouvé(s)"
+cancel: annuler
+page: "page {page}"
+
+# field titles
+admin_title: Administrateur
+title_title: Titre
+position_title: Position
+description_title: Description
+edit_title: Editer
+moderators_title: Moderateurs
+views_title: Lectures
+settings_title: Paramètres
+logout_title: Se déconnecter
+signup_title: S'inscrire
+login_title: Se connecter
+save_title: Sauvegarder
+password_title: Mot de passe
+sticky_title: Post-It
+locked_title: Verrouillé
+body_title: Corps
+display_name_title: Nom affiché
+identity_url_title: Identity Url
+website_title: Site Internet
+bio_title: Bio
+email_title: Email
+basics_title: Informations générales
+avatars_title: Avatars
+search_title: Recherche
+
+by: par
+save_changes: Sauvegarder les changements
+remember_me: Se souvenir de moi
+delete_conf: "Supprimer définitivement {thing} ?"
+email_directions: Entrez votre email et une nouvelle clé vous sera envoyée. Cliquez sur le lien dans l'email pour vous connecter et ensuite changez votre mot de passe.
+email_submit: Envoyez moi le lien par email
+powered_by: Propulsé par
+and: et
+users_monitored_topics: "Sujets surveillés de {name}"
+delete: supprimer
+activation: Merci de visiter le lien ci dessous pour activer votre compte.
+without_http: sans http://
+admin_in_parens: '(admin)'
+admin_and_moderation: Admin & Modération
+remove_moderated_forum: Cet utilisateur peut modérer les forums suivant.  Cliquez sur un forum pour le supprimer.
+remove_user_as_moderator: Supprimer les droits de modération pour
+searching_for: Recherche de
+locked: verrouillé
+edit: editer
+delete: supprimer
+login: login
+once: une fois
+and_again: et encore
+
+open_id_field: Saisissez votre url OpenID Identity si vous la connaissez.
+open_id_field_extended: Saisissez votre url OpenID Identity si vous la connaissez.  Si votre url Identity support l'extension {sreg} vous pouvez {login_link} et créer votre compte automatiquement.
+login_field: Un login doit commencer avec au moins 2 lettres et peut contenir des lettres, des chiffres ou l'underscore.
+password_field: Entrez votre mot de passe deux fois. Il doit contenir au moins 5 caractères.
+
+formatting_help: Aide au formatage
+formatting_bold: "*gras*"
+formatting_italics: "_italique_"
+formatting_blockquote: "bq. <span>(citations)</span>"
+formatting_list: "* or # <span>(listes)</span>"
+
+# additions by Raimonds Simanovskis on 2007-05-11
+or: ou
+by_user: par {user}
+in_forum: dans {forum}
+a_few_seconds_ago: "il y a quelques secondes"
+1_minute_ago: "il y a 1 minute"
+minutes_ago: "il y a {minutes} minutes"
+1_hour_ago: "il y a 1 heure"
+hours_ago: "il y a {hours} heures"
+1_day_ago: "il y a 1 jour"
+days_ago: "il y a {days} jours"
+
+topics: sujets
+posts: messages
+topic_count: "{count} sujets"
+post_count: "{count} messages"
+voice_count: "{count} voix"
+post_count_found: "{count} messages trouvés"
+
+comma_locked_topic: ", ce sujet est verrouillé."
+
+view: voir
+last: dernier
+
+administrator_title: Administrateur
+moderator_title: Moderateur
+
+topic_locked_title: Topic verrouillé
+
+recent_posts_in_topic: "Messages récents dans '{topic}' | Beast"
+
+delete_post_conf: "Supprimer ce message ?  Etes-vous sûr ?"
+delete_topic_conf: "Supprimer ce sujet ?  Etes-vous sûr ?"
+
+date_format: "%d/%m/%Y"
+datetime_format: "%d/%m/%Y  %H:%M"
+
+posts_feed_title: "{search_posts_title} | Beast"
+
+feed_language: fr-fr
+posts_user_is_monitoring: "Les messages que {user} surveille"
+
+view_all: tous
+
+for_user: pour {user}
+
+signup: S'inscrire
+signup_action: S'inscrire
+login_action: Se connecter
+
+check_email_message: "Merci de vérifier l'adresse email"
+post_something_message: "Merci de poster quelque chose..."
+error_occured_message: "Une erreur est survenue"
+post_deleted_message: "Le sujet '{title}' a été supprimé."
+logged_out_message: "Vous avez été déconnecté."
+openid_not_found_message: "Désolé, le serveur OpenId ne peut être trouvé."
+openid_canceled_message: "La vérification OpenId a été annulée"
+openid_failed_message: "Désolé, la vérification OpenId a échouée"
+openid_saving_error_message: "Une erreur est survenue en récupérant les champs à l'adresse {identity_url}: {errors}"
+openid_no_user_message: "Désolé, aucune identité à l'adresse {identity_url}"
+invalid_login_message: "Mauvais login ou mot de passe. Veuillez réessayer."
+topic_deleted_message: "Le sujet '{title}' a été supprimé."
+could_not_find_account_message: "Aucune compte avec l'adresse email '{email}' n'a été trouvé. Avez vous tapé l'adresse correctement ?"
+signup_permanent_error_message: "Une erreur permanente est survenue lors de l'envoi du message d'inscription à l'adresse '{email}'. Merci de vérifier l'adresse email."
+signup_cannot_sent_message: "Le message d'inscription n'a pas pu être envoyé à l'adresse '{email}' pour le moment. Merci de réessayer ultérieurement."
+temporary_login_message: "Un login temporaire a été envoyé à l'adresse '{email}'."
+account_activation_message: "Un email d'activation a été envoyé à l'adresse '{email}'."
+signup_complete_message: "Inscription terminée !"
+settings_saved_message: "Vos paramètres ont été sauvegardés."
+
+footer_message: "Two's company. Three's a forum. More's a Beast."

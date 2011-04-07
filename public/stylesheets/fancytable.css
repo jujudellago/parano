@@ -1,0 +1,76 @@
+/* Greyscale
+Table Design by Scott Boyle, Two Plus Four
+www.twoplusfour.co.uk
+----------------------------------------------- */
+table.fancytable img {border:none;}
+table.fancytable {border-collapse: collapse;
+border: 1px solid #BAD482;
+color: #555;
+background: #fff;
+width:690px;
+font-size:0.9em;
+}
+table.fancytable th.email    {width:180px;}
+table.fancytable th.ln       {width:100px;}
+table.fancytable th.fn       {width:100px;}
+table.fancytable th.roles    {width:40px;}
+table.fancytable th.enabled  {width:20px;}
+table.fancytable th.edit     {width:10px;}
+table.fancytable th.pwd     {width:10px;}
+
+
+
+table.fancytable td, table.fancytable th {border: 1px dotted #bbb;font-size: 12px;
+padding: .5em;}
+
+table.fancytable caption {padding: 0 0 .5em 0;
+text-align: left;
+font-size: 1.1em;
+font-weight: bold;
+text-transform: uppercase;
+color: #333;
+background: transparent;}
+
+/* =links
+----------------------------------------------- */
+
+table.fancytable a {padding: 1px;
+text-decoration: none;
+font-weight: bold;
+color:#4C7000;
+background: transparent;}
+
+table.fancytable a:link,table.fancytable a:visited {border-bottom: 1px dashed #ddd;
+color: #4C7000;}
+
+
+
+table.fancytable a:hover {border-bottom: 1px dashed #bbb;
+color: #4C7000;}
+
+/* =head =foot
+----------------------------------------------- */
+
+table.fancytable th,table.fancytable tfoot th {border: 1px solid #BAD482;
+text-align: left;
+font-weight: bold;
+color: #455A79;
+background: transparent;}
+
+table.fancytable tfoot td {border: 1px solid #000;}
+
+/* =body
+----------------------------------------------- */
+
+table.fancytable tbody th,table.fancytable tbody td {vertical-align: top;
+text-align: left;}
+
+table.fancytable tbody th {white-space: nowrap;}
+
+table.fancytable .odd {background: #fcfcfc;}
+table.fancytable .disabled_user{background: #ffb5b5;}
+table.fancytable .enabled_user{background: #fcfcfc;}
+
+
+/*table.fancytable tbody tr:hover {background: #beccff;}
+table.fancytable tbody tr.disabled_user:hover {background: #fddbdb;}*/
