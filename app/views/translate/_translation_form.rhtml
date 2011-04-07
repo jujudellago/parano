@@ -1,0 +1,26 @@
+<!--[form:translate]-->
+<td>
+<label for="tr_<%= tr.id %>"><%=tr.tr_key%></label>
+</td>
+<td>
+<!-- <span id="tr_<%= tr.id %>">
+<%# render :partial => 'translation_text', :object => tr.text %>
+</span> -->
+
+
+
+<%# in_place_editor "tr_#{tr.id}", 
+    :url => { :action => :set_translation_text, :id => tr.id },
+    :load_text_url => url_for({ :action => :translation_text, :id => tr.id })  %>
+<%  label= tr.text.nil? ? "[no translation]" : tr.text %>
+<%= in_place_text_field :viewtranslation, :text , :object=>tr, :display_text => label%>
+<%# debug tr %>
+
+<%# in_place_text_field "tr_#{tr.id}", 	    :url => { :action => :set_translation_text, :id => tr.id },	    :load_text_url => url_for({ :action => :translation_text, :id => tr.id })%>
+</td>
+<td>
+<%= link_to_remote(image_tag(CMS_ICONS['delete'], :alt=>"Destroy".t), :url => destroy_transalte_key_url(tr.id), :method => :delete)     %>
+
+</td>
+
+<!--[eoform:translate]-->

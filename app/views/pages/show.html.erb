@@ -1,0 +1,24 @@
+<%
+@page_title= @page.title
+cache_name="page-"+@page.id.to_s
+# 
+cache cache_name do 
+	%>
+
+<div class="contentText">
+<h2 class="entrytitle"><%= @page_title %></h2>
+<%# format_user_text(@page.body) %>
+<%= @page.body %>
+
+<% end %>
+
+
+<%# link_to_print(page_url(@page,:print=>'yes')) unless@print_page %>
+<% if (@page.with_comments && !@print_page) %>
+<%= link_to_comment(@page_title,page_url(@page))  %>
+<% end %>
+</div>
+
+
+<!-- http://d162611.tmp55.swisscenter.com -->
+

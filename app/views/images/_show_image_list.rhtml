@@ -1,0 +1,16 @@
+<%
+# Assumes local images is set.
+
+#$('src').value='';$('alt').value='';insertAction();
+%>
+
+<% if images.size > 0 %>
+<ul>
+  <% images.each do |image| %>
+    <li style="padding:0;margin:0;list-style-type:none;display:inline;"><a href="javascript:void(0)" onclick="<%= "ts_insert_image('#{image.public_filename}', '#{image.public_filename}');" %>"><%= image_tag( image.public_filename(:thumb) ) %></a></li>
+  <% end %>
+</ul>
+
+<% else %>
+<%= "No Images Uploaded Yet.".t %>
+<% end %>

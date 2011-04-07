@@ -1,0 +1,40 @@
+<div id="photos">
+<div style="float:right">
+<% if admin? %>
+<h4>&gt;&nbsp;<%= link_to_function 'Upload a new picture'[:upload_new_picture] do |page| 
+	page[:photo_form_container].toggle
+end %></h4>
+<% end %>
+<h4>&gt;&nbsp;<%= link_to("Back to galleries"[:back_to_galleries],galleries_path) %></h4>
+</div>
+<h1><%= @gallery.name %><%= ajax_spinner_for "order_photos" , "banner-loader.gif" %></h1>
+<div id="confirm_message" style="display:none"><%= "Positions Saved !".t %></div>
+<p><%= @gallery.description %></p>
+<ul id="photos_list">
+<% for photo in @photos %>
+  <%= render(:partial => 'photo', :locals => { :photo => photo}) %>
+<% end %>
+</ul>
+<% if admin? %>
+<iframe id='upload_frame' name="upload_frame" style="width:1px;height:1px;border:0px" src="about:blank"></iframe>
+<div id="photo_form_container" style="display:none">
+<br />
+<% form_for(:photo, :url => formatted_gallery_photos_path(@gallery,:format => 'js'),:html => { :multipart => true, :target => 'upload_frame', :id=>'fu_form' }) do |f| %>
+<%= render(:partial => '/photos/form', :locals=>{ :f=>f})%>
+<% end %>
+<br />
+</div>
+
+
+
+
+<%= sortable_element('photos_list', :update => 'photos', :url => {:action => :update_positions, :gallery_id=>@gallery.id}, :constraint=>false,
+	:before => "$('confirm_message').hide();$('order_photos_spinner').show();",
+	:complete =>"$('confirm_message').show();new Effect.Highlight('confirm_message',{duration:5});new Effect.Fade('confirm_message');")
+	%>
+	
+<% end %>
+
+</div>
+
+

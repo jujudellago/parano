@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<%= render :partial =>'/layouts/headers'%>
+<%= render :partial =>'/layouts/styles'%>
+<meta name="keywords" content="<%= yield(:keywords) || render(:partial=>'/layouts/keywords')  %>" />
+<meta name="description" content="<%= yield(:description) || render(:partial=>'/layouts/description')  -%>" />
+<meta name="Author" content="Yabo-concept" />
+<meta name="verify-v1" content="grhgM64QgprfVJM82RrsSXhmPMFV+d/Sg6jBHmGePsM=" />
+<%= yield :head %>
+<%= yield :extracss%>
+<%- lncolors=['3af907','07f9c9','748add','a7005a','e85f15','ff0024'] 
+idx = rand(lncolors.count)
+lncolor=lncolors[idx]
+-%>
+
+<style tyle="text/css">
+.relatedLinks h3,
+#footer a, #footer a:visited, #footer a:active ,
+#content a,#content a:visited ,
+#content h1,#content h3,#content h4,#content h5,#content h6,
+#browse .categoryhead ,
+#menu h2,    
+#content h2{
+	color:#<%= lncolor %>;
+}
+
+#browse .subhead{color:#<%= lncolor %>; 	border-bottom:4px solid #<%= lncolor %>;}
+#content th {background:#<%= lncolor %>; color:#4c7000;  border-bottom:1px solid #9bacd6;}
+#content td {border-bottom:1px solid #<%= lncolor %> ; border-right:1px solid #e1e9fd;}
+</style>
+</head>
+
+<body>
+		<div id="loading">&nbsp;</div>
+<div id="content-wrapper">
+<div id="wrap">
+	<% unless @no_fancy_flash -%>
+	<%= render :partial =>'/layouts/page_header' -%>
+	<% end -%>
+<div id="header">
+<a href="#"></a></div>
+<div id="page">
+<div id="menu">
+<div id="sidemenu">
+<h2>Menu</h2>
+	<%= render :partial =>'/layouts/top_navigation_no_dropdown' %>
+	<p>&nbsp;</p>
+		<p>&nbsp;</p>
+<h2>Liens</h2>
+<ul>	
+<li><%= link_to(image_tag('/images/icons/logos/myspace_16.jpg',:border=>'0')+" parano sur myspace","http://www.myspace.com/paranoshop",:target=>'_blank') %>
+</li>
+<li><%= link_to(image_tag('/images/icons/logos/facebook_16.gif',:border=>'0')+" parano sur facebook","http://www.facebook.com/pages/Nyon/Parano/120735897963225",:target=>'_blank') %> </li>
+</ul>
+			<div class="relatedLinks">
+				<%
+				 menu_cache_name="archives-"
+					cache menu_cache_name do 
+						%>
+					<h3><%= "Archives:".t %></h3>
+					<%# JujuHelper.archives_structure_linked(@articles, @category.permalink) %>
+					<%= JujuHelper.archives_structure_linked(Article.find_all_for_archive) %>
+				<% end -%>
+			</div>
+
+	<div class="relatedLinks">
+	<%= yield :menu_center_1 -%>
+	<%#<iframe src="http://www.facebook.com/widgets/like.php?href=http://www.parano-shop.ch"     scrolling="no" frameborder="0"     style="border:none; width:250px; height:280px"></iframe>%>
+	<div class="white">
+<iframe src="http://www.facebook.com/plugins/likebox.php?id=120735897963225&amp;width=180&amp;connections=10&amp;stream=true&amp;header=true&amp;height=587" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:182px; height:587px;" allowTransparency="true"></iframe>
+</div>
+	</div>
+</div>
+</div>
+<div id="content">
+		<%= yield :layout -%>
+</div>
+<div class="clear"></div>
+
+<div id="browse">
+<h2 class="subhead">Official Dealer</h2>
+<% @brands=Brand.find(:all) %>
+<% @cols=Array.new %>
+<% @cols[0]=Array.new %>
+<% @cols[1]=Array.new %>
+<% @cols[2]=Array.new %>
+<% @cols[3]=Array.new %>
+<% @cols[4]=Array.new %>
+
+<% @brands.in_groups_of(5) do | row_brands |%>
+	<% j=0 %>
+	<% for brand in row_brands %>
+		<% @cols[j]<<brand unless brand.nil?%>
+	<% j=j+1 %>
+	<% end %>
+<% end %>
+
+<% for col in @cols  %>
+<div class="browsecat">
+  <ul>
+		<% for brand in col %>
+			<li class="brand"><%= image_tag(brand.icon.public_filename(:thumb)) unless brand.icon.nil? %><br />
+				<%= link_to(brand.url.remove_http,brand.url,:target=>'_blank',:class=>'previewlink')unless brand.url.nil? %></li>
+		<% end %>
+  </ul>
+</div>
+<% end %>
+<div class="clear"></div>
+</div>
+</div>
+<div id="footer">
+<div id="footercontent">
+<p>parano-shop.ch &copy; All Rights Reserved</p>
+<p id="credit">design by <a href="http://www.yabo-concept.ch" target="_blank">Yabo-concept</a> | design original par <a href="http://www.ramblingsoul.com"  target="_blank">www.ramblingsoul.com</a></p>
+
+</div>
+</div>
+</div>
+<% if  logged_in? %>
+<%= render :partial =>'/layouts/editor_menu'-%>
+<% else %>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-6667101-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<% end %>
+</div>
+	<div id="supersized"></div>
+</body>
+</html>

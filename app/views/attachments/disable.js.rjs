@@ -1,0 +1,5 @@
+page[@attachment.dom_id].visual_effect :highlight,  :startcolor => '#FF9393', :duration=>1
+#page[@attachment.dom_id].className="clx"
+# page[@attachment.dom_id].replace_html :partial=>'attachment', :locals=>{:attachment=>@attachment} 
+page["enabled_attachment_leds_"+@attachment.dom_id].replace_html :partial=>'enabled_attachment_leds', :locals=>{:attachment=>@attachment} 
+flash.discard

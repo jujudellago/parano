@@ -1,0 +1,41 @@
+<h2><%= "Listing attachments for page".t %> "<%= @page.title %>"</h2>
+
+<div id ="attachments_editor_container">
+	<div id ="editor_infos">
+		<h3><%= "Infos".t %></h3>
+		<p><%=image_tag(CMS_ICONS['edit'], :alt=>'edit'.t)%> <%="Edit".t%></p>
+		<!-- <p><%=image_tag(CMS_ICONS['code'], :alt=>'Edit HTML code'[:edit_html_code])%> <%="Edit HTML code"[:edit_html_code]%></p> -->
+		<p><%=image_tag(CMS_ICONS['delete'], :alt=>"Destroy".t)%> <%="Destroy".t%></p>
+
+		<p><%=image_tag(CMS_ICONS['cfmd'], :alt=>"Attachment enabled".t) %> <%="Attachment enabled".t %> <span class="small_info"><%= "Click on icon to disable".t %></span></p>
+		<p><%=image_tag(CMS_ICONS['clx'],:alt=>"Attachment disabled".t) %>  <%="Attachment disabled".t %><span class="small_info"><%= "Click on icon to enable".t %></span></p>
+		<p><%=image_tag(CMS_ICONS['visible'],:alt=>"Visible to".t) %>  <%="Visible to".t %></p>
+		<p><%=image_tag(CMS_ICONS['updown'], :alt=>"Order attachments ".t)%> <%="Order attachments ".t%></p>
+		<p><%=image_tag(CMS_ICONS['attach_new'], :alt=>"New attachment ".t)%> <%="New attachment ".t%></p>
+	</div>
+<%# for attachment in @attachments %>
+<%  MENU_LOCALES.each do |lang|  %>
+
+<fieldset>
+	<legend><%= country_icon(lang,true) unless lang.nil? %></legend>
+<% attachments=@lang_attachments[lang] %>
+<% if attachments.size>0 -%>
+<ul>
+<% @i=1 %>
+<% attachments.each do |attachment| %>
+	<%# h attachment[1] %>
+<%= render :partial => 'attachment' , :locals=>{:attachment=>attachment} %>
+<% @i=@i+1 %>
+<% end %>
+</ul>
+<% end %>
+<%= link_to image_tag(CMS_ICONS['attach_new'])+' '+'New attachment'.t, page_new_attachment_path(:language_code=>lang,:new_position=>@i) , :class=>'system_links' %>
+<%= link_to image_tag(CMS_ICONS['updown'])+' '+'Positions'.t, page_positions_attachments_path(:language_code=>lang), :class=>'system_links' %>
+</fieldset>
+<% end %>
+<br />
+<%# link_to(image_tag(CMS_ICONS['new_attach']), new_page_attachment_path(:language_code=>lang,:new_position=>@i)) %>
+<%# link_to(image_tag(CMS_ICONS['updown']), positions_page_attachments_path(:language_code=>lang)) %>
+
+
+</div>

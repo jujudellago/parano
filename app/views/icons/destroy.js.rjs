@@ -1,0 +1,12 @@
+if @attachment
+  #page[ "icons_form"].replace_html :partial=>'/attachments/upload_icon_form'
+  page[ "icons_list"].replace_html :partial=>'/attachments/icon',  :locals => { :no_icon => true} 
+  page[ "link_image"].replace_html :partial =>'/attachments/link_image', :locals => { :no_icon => true} 
+elsif @article
+  #page[ "icons_form"].replace_html :partial=>'/articles/upload_icon_form'
+  page[ "icons_list"].replace_html :partial=>'/articles/icon',  :locals => { :no_icon => true}
+elsif @brand
+  page[ "icons_list"].replace_html :partial=>'/brands/icon',  :locals => { :no_icon => true}
+end
+#page["photo_#{@photo.id}"].visual_effect :puff
+flash.discard

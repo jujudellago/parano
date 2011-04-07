@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"></meta>
+	<%= render :partial =>'/layouts/headers'%>
+	<%= render :partial =>'/layouts/styles'%>
+	<%= yield :head %>
+	<%= yield :extracss%>
+</head>
+<body>
+	<div id="wrapper">
+	<% unless @no_fancy_flash -%>
+	<%= render :partial =>'/layouts/page_header' -%>
+	<% end -%>
+	<div id="container">
+		<div id="masthead">
+			<div class="upperNavLayer">
+				<div id="languageNavBar">
+
+				</div>
+			 	<%= render :partial => '/layouts/search_login' %>
+			</div>
+			<div id="logo">
+				<%= link_to(image_tag('/images/layout_ccf/ccf_logo.jpg',:alt=>'CFF homepage',:border=>'0'),index_url) %>
+			</div>
+			<div class="slideshow">
+			<script type="text/javascript">
+			//new fadeshow(IMAGES_ARRAY_NAME, slideshow_width, slideshow_height, borderwidth, delay, pause (0=no, 1=yes), optionalRandomOrder)
+			new fadeshow(fadeimages, 962, 113, 0, 6000, 0)
+			</script>
+		</div>
+	</div>
+	<div id="globalNavBar">
+		<div class="menustyle" id="globalmenu">
+			<%= render :partial =>'/layouts/top_navigation' %>
+
+		<script type="text/javascript">
+		cssdropdown.startglobal("globalmenu")
+		</script>
+	</div>
+	<div id="leftColumn">
+		<div id="content">
+			<div id="rightCol">
+			<%= yield :layout -%>
+		</div>
+		<div id="leftCol">
+			<div id="sectionLinks">
+			<% 
+		 	unless @parent.nil? -%>
+				<% 	menu_cache_name="pagelinks-#{@parent.id}-"
+					cache menu_cache_name do -%>
+						<%= get_sub_page_menu(@parent) -%>
+					<% end -%>
+			<% end -%>
+			</div>
+
+			<% unless (@articles.nil? && @category.nil?) -%>
+			<div class="relatedLinks">
+				<%
+				 menu_cache_name="archives-#{@category.id}-"
+					cache menu_cache_name do 
+						%>
+					<h3><%  unless  @category.agenda %> <%= "Archives:".t %> <% end  %> <%= @category.name %></h3>
+					<%# JujuHelper.archives_structure_linked(@articles, @category.permalink) %>
+					<%= JujuHelper.archives_structure_linked(@category.articles.find_all_for_archive(@category,session[:locale]), @category.permalink) %>
+				<% end -%>
+			</div>
+			<% end %>
+			
+			<% unless @page.nil? -%>
+				<% menu_cache_name="pageattachments-#{@page.id}-"
+					cache menu_cache_name do %>
+						<%=	get_page_attachments(@page) -%>
+				<% end -%>
+			<% end -%>
+			<% unless @article.nil? -%>
+			<% if @article.icon -%>
+			<div class="imageLeftCol">
+				<%= image_tag(@article.icon.public_filename(:banner)) -%>
+			</div>
+			<% end -%>
+			<% end -%>
+			
+			
+			
+		</div>
+		<div class="bottomdiv"></div>
+	</div>
+</div>
+<!--end navBar div -->
+<div id="rightColumn">
+	<%= render :partial =>'/layouts/right_banner' -%>
+</div>
+<!--end rightColumn -->
+<!--end content -->
+    <%= render :partial =>'/layouts/footer' %>
+</div>
+</div>
+</body>
+</html>

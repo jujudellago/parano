@@ -1,0 +1,14 @@
+<h1>Editing photo</h1>
+<%= light_photo(@photo) %>
+<%= error_messages_for :photo %>
+
+<% form_for(:photo, :url => gallery_photo_path(@photo), :html => { :method => :put }) do |f| %>
+<p>Name:<br /><%= f.text_field 'name' %></p>
+ <p>Legend:<br /><%= f.text_area 'legend', :rows => 2, :cols => 40 %></p>
+  <p>
+    <%= submit_tag "Update" %>
+  </p>
+<% end %>
+
+<%# link_to 'Show', photo_path(@photo) %> 
+<%= link_to 'Back', gallery_photo_path(@gallery) %>

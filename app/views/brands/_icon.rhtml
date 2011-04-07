@@ -1,0 +1,17 @@
+<% if icon &&  icon.image? && !no_icon%>
+	<div id="attachedfile_icon" class="icon_image">
+		<%= image_tag(icon.public_filename(:banner),:class=>'icon')  %>
+		<div class="icon_link">
+		<%= link_to_remote("Delete".t+image_tag(CMS_ICONS['delete']), {:url => brand_icon_path(:id=> icon.id), :method => :delete, :confirm => "are you sure?"}) %>
+		</div>
+	</div>
+<% else %>
+	<div id="no_icon" class="icon_image">
+<%= image_tag('no-image.jpg',:class=>'icon') %>
+	<div class="icon_link" style="width:180px">
+<%= link_to_function 'Select a picture'.t+image_tag(CMS_ICONS['image_new']) do |page| 
+	page[:icons_form].toggle
+end %>
+</div>
+	</div>
+<% end %>

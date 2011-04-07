@@ -1,0 +1,24 @@
+<table align="center" class="noborder">
+ <tr>
+	<td colspan="2"><h2><%= "New Gallery" %></h2></td>
+</tr>	
+<tr>	
+	<td>		
+	 <p>
+    <b><%= "Name"[:name] %>:</b><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <b><%= "Description"[:description] %>:</b><br />
+    <%= f.text_area :description, :rows=>3, :cols=>60 %>
+  </p></td>
+<td>
+   <%= submit_tag "Create" %>	<%= link_to_function 'cancel'[:cancel] do |page| 
+		page[:photo_form_container].toggle
+		page['gallery_form'].reset
+	end %>	  </p>
+	</td>
+</tr>
+</table>
+
+

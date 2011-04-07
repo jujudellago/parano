@@ -1,0 +1,109 @@
+<% unless @edit_rights %>
+<%= fieldset_legend("Display".t) %>
+		<fieldset>
+			<legend><%= "Text".t %> <%=  f.radio_button 'show_what', 'text' , :onclick=>"$('icons_list').hide();$('display_text').show();define_position()"	
+			%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= "Image".t %> <%=  f.radio_button 'show_what', 'image', :onclick=>"$('display_text').hide();$('icons_list').show();define_position()"
+			  %></legend>
+			<% 
+			visible_text=""
+			visible_image=""
+			if  @attachment.show_what=="text"
+				visible_text=""
+				visible_image="style=\"display:none\""
+			else
+				visible_image=""
+				visible_text="style=\"display:none\""
+			end 
+			%>
+			<div id="display_text" <%= visible_text %> ><label for="attachment_name"><%= "Enter text".t %></label><%= f.text_field :name %>          </div>
+			<div id="icons_list" <%= visible_image %> >
+	  			<%= render(:partial => 'icon', :locals => { :icon => @icon,:no_icon=>false}) %>
+			</div>
+	
+	</fieldset>
+<%= fieldset_end %>
+<%= fieldset_legend("Link".t) %>
+		<fieldset>
+			<legend><%= "Url".t %><%=  f.radio_button 'linktype', 'url' , :onclick=>"$('link_file').hide();$('link_image').hide();$('link_url').show();$('link_nothing').hide();"	
+			%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= "File".t 
+			%><%= 					   f.radio_button 'linktype', 'file' , :onclick=>"$('link_file').show();$('link_image').hide();$('link_url').hide();$('link_nothing').hide();"	  
+			%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= "Image".t 
+			%><%=  					 f.radio_button 'linktype', 'image'  , :onclick=>"$('link_file').hide();$('link_image').show();$('link_url').hide();$('link_nothing').hide();"	 
+			%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= "Nothing".t 
+			%><%=  					 f.radio_button 'linktype', 'nothing'  , :onclick=>"$('link_file').hide();$('link_nothing').show();$('link_url').hide();$('link_image').hide();"	 
+			%></legend>
+			<% 
+			visible_link_url=""
+			visible_link_file=""
+			visible_link_image=""
+			if  @attachment.linktype=="url"
+				visible_link_url=""
+				visible_link_file="style=\"display:none\""
+				visible_link_image="style=\"display:none\""
+				visible_link_nothing="style=\"display:none\""
+			elsif @attachment.linktype=="file"
+				visible_link_url="style=\"display:none\""
+				visible_link_file=""
+				visible_link_image="style=\"display:none\""
+				visible_link_nothing="style=\"display:none\""
+			elsif @attachment.linktype=="nothing"
+				visible_link_url="style=\"display:none\""
+				visible_link_file="style=\"display:none\""
+				visible_link_image="style=\"display:none\""
+				visible_link_nothing=""
+			else
+				visible_link_url="style=\"display:none\""
+				visible_link_file="style=\"display:none\""
+				visible_link_image=""
+				visible_link_nothing="style=\"display:none\""
+			end 
+				%>
+			
+			<div id="link_url" <%= visible_link_url %>>
+				<label for="attachment_url"><%= "Url".t %></label><%= f.text_field :url %>(<%= "Start with \"http://\" or \"mailto:\"  ".t %>) <br><br>
+				<h3><%= "Notice" %></h3> <br>
+					<h4><%= "to make a link to a website, i.e: www.example.com, you must enter:".t %><br> http://:www.example.com </h4>  <br><br>
+				
+				<h4><%= "to make a link to an email address, i.e: mail@example.com, you must enter:".t %><br> mailto:mail@example.com </h4>  
+			</div>
+			<div id="link_file" <%= visible_link_file %>>
+					<%= render(:partial => 'attachedfile', :locals => { :attachedfile => @attachedfile,:no_attachedfile=>false}) %>
+			</div>
+			<div id="link_image" <%= visible_link_image %>>
+				<%= render(:partial => 'link_image', :locals => { :icon => @icon,:no_icon=>false}) %>
+			</div>
+				<div id="link_nothing" <%= visible_link_nothing %>>
+					<h3><%= "No link, just image or text".t %></h3>
+				</div>
+			
+		</fieldset>
+<%= fieldset_end %>
+<%= fieldset_legend("Legend".t) %>
+<div><label for="attachment_legend"><%= "Legend".t %></label><%= f.text_field :legend %>    </div>
+<%= fieldset_end %>
+<% end %>
+
+
+<%= fieldset_legend("Access restriction".t) %>
+		<div>	
+			<% ispublic=true
+			if @attachment.roles.size>0
+				ispublic=false
+			end
+			 %>
+				<label class="wide"><%= "public" %></label>
+			<%= check_box_tag "public_page", "public", ispublic, :onclick=>'disable_roles("attachment_form", "attachment[role_ids][]")' -%>
+		</div>
+		<% for role in Role.get_user_roles(false) %>
+		<div>
+				<label class="wide"><%= role.name %></label>
+			<%= check_box_tag "attachment[role_ids][]", role.id, @attachment.roles.include?(role), :onclick=>'disable_roles("attachment_form","public_page")' -%>
+		</div>
+		<% end %>
+<%= fieldset_end %>
+<%= fieldset_legend("Visibility".t) %>
+<div><label for="attachment_enabled"><%= "Enabled".t %> </label><%= f.check_box :enabled %> </div>
+<%= fieldset_end %>
+<%= f.hidden_field :language_code, :value=>params[:language_code] %>
+
+

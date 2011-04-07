@@ -1,0 +1,18 @@
+<% content_for :head do%>
+<%= javascript_include_tag 'tiny_mce/tiny_mce.js' %>	
+<% end %>
+<%= use_tinymce  %>
+
+<h2><%= "Edit Article".t %></h2>
+<%= start_form_container %>
+<%= error_messages_for :article %>
+<% form_for(:article, :url => category_article_path(@article), :html => { :method => :put, :id=>'article_form' }) do |f| %>
+    <%= render :partial => 'article_form', :locals => {:f => f} -%>
+		<%= fieldset_legend("Action".t) %>
+		<%= submit_tag "Update".t,:onclick=>"return (check_article_form('article_form'))", :class=>'fancy_ok' %> 
+	<% end %>
+	<%= button_to 'Back'.t,  articles_path(:category_id=>@category_id), :class=>'fancy_nok',:method=>:get %>
+<%= fieldset_end %>
+<%= render(:partial => 'upload_icon_form')%>
+<%= upload_frame %>
+<%= end_form_container %>

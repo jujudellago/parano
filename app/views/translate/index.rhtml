@@ -1,0 +1,37 @@
+<% base_language_only do -%>
+<div id="language"><h1>Please choose language for translation</h1></div>
+<% end -%>
+<%#Locale.language.id %>
+<div id="language"><h1><%= "Language: " + Locale.language.native_name %></h1></div>
+<div>
+<table class="fancytable">
+<% @view_translations.each do |tr| -%>
+<% 	css_class=cycle('odd', 'even') %>
+	<tr class="<%= css_class -%>" id="<%= tr.dom_id %>"><%= render :partial => 'translation_form', :locals => {:tr => tr}%></tr>
+<% end -%>
+</table>
+</div>
+<%- content_for :menu_center_1 do -%>
+<%- letters=%w(0-9 a b c d e f g h i j k l m n o p q r s t u v w x y z) -%>
+	<%- sub_box("Keys","lists",nil)  do-%>
+		<div class="pagination_spaced" >
+			<% letters.each do |letter| 
+				l=letter
+				if l==@sel_letter %>
+				<%= "<span class=\"current\">"+l+"</span>" %>
+				<%else%>
+				<%= link_to(l,translate_alpha_url(:letter=>l),:name=>"letter_#{l}") %>	
+				<%end -%>
+			<% end -%>
+		</div>
+	<%- end -%>
+	
+	<%- sub_box("Search","search",nil) do -%>
+		<%  form_tag("/#{session[:locale]}/translate",:method=>:get )  do %>
+		 <div class="inline_form">
+			<%= text_field_tag :q, params[:q], :size => 30 , :class=>"huge_text" %>     
+			<%= submit_tag("GO!".t,{:icon=>'magnifier.png'}) %>
+		</div>
+		<%- end -%>
+	<%- end -%>
+<%- end -%>

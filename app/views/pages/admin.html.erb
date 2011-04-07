@@ -1,0 +1,31 @@
+<h2><%='All pages'.t %></h2>
+
+<div id ="editor_infos">
+	<h3><%= "Infos".t %></h3>
+	<p><%=image_tag(CMS_ICONS['edit'], :alt=>'edit'.t)%> <%="Edit in WYSYWYG".t%></p>
+	<!-- <p><%=image_tag(CMS_ICONS['code'], :alt=>'Edit HTML code'[:edit_html_code])%> <%="Edit HTML code"[:edit_html_code]%></p> -->
+	<p><%=image_tag(CMS_ICONS['delete'], :alt=>"Destroy".t)%> <%="Destroy".t%></p>
+	<p><%=image_tag(CMS_ICONS['add_child'], :alt=>'Add child page'.t)%> <%= 'Add child page'.t %></p>
+	<p><%=image_tag(CMS_ICONS['updown'], :alt=>"Order pages ".t)%> <%="Order pages ".t%></p>
+	<p><%=image_tag(CMS_ICONS['attach'],:alt=>"Attachments".t) %>  <%="Attachments".t %></p>
+	<p><%=image_tag(CMS_ICONS['cfmd'], :alt=>"Page enabled".t) %> <%="Page enabled".t %> <span class="small_info"><%= "Click on icon to disable".t %></span></p>
+	<p><%=image_tag(CMS_ICONS['clx'],:alt=>"Page disabled".t) %>  <%="Page disabled".t %><span class="small_info"><%= "Click on icon to enable".t %></span></p>
+	<p><%=image_tag(CMS_ICONS['visible'],:alt=>"Visible to".t) %>  <%="Visible to".t %></p>
+</div>
+
+<ol id="pages_list">
+  <% @pages.each do |page| %>
+<%= render :partial => 'page', :locals=>{:page=>page} %>
+  <% end %>
+</ol>
+
+<p><%= link_to_function 'Add parent page'.t do |page| 
+	page[:form_container].toggle
+	page[:parent_hidden].value="0"
+	page.replace_html :info_page_form, 'Add parent page'.t
+end %>
+</p>
+
+<%= render :partial => 'page_subform' %>
+
+

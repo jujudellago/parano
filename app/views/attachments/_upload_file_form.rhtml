@@ -1,0 +1,11 @@
+<div id="attachedfiles_form" class="overlay_form" style="display:none">
+<% form_for(:attachedfile, :url => attachedfiles_path(@attachment,:format => 'js'),:html => { :multipart => true, :target => 'upload_frame', :id=>'fu_file_form' }) do |ff| %>
+<h2 class="no_line"><%= "Select a file".t %></h2>
+<%= ff.file_field :uploaded_data %></p>
+    <%= submit_tag "Create".t, :class=>'fancy_ok' %><%= button_to_function 'Cancel'.t, :class=>'fancy_nok' do |page| 
+		page[:attachedfiles_form].toggle
+	end %>
+<% end %>
+</div>
+
+

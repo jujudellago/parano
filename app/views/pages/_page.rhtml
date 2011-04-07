@@ -1,0 +1,32 @@
+<li id="<%= page.dom_id %>" >
+<strong> <%= page.title %> </strong>
+<span class="edit_icons">
+<%= link_to(image_tag(CMS_ICONS['edit'], :alt=>'edit'[:edit]), edit_page_path(page)	 )%>
+<%= link_to_function( image_tag(CMS_ICONS['add_child'], :alt=>'Add child page'[:add_sub_page])) do |pg| 
+	pg[:form_container].toggle
+	#pg[:form_container].visual_effect :highlight
+	pg[:parent_hidden].value=page.id
+	pg.replace_html :info_page_form, "Add child to ".t+" \""+page.title+"\""
+end  if page.id<1000%>
+<%= link_to (image_tag(CMS_ICONS['attach']),page_attachments_path(page)) %>(<%= page.attachments_count %>)
+<span id="enabled_page_leds_<%= page.dom_id %>"><%= render :partial=>'enabled_page_leds', :locals=>{:page=>page,:no_enable=>true} %></span>	
+
+<!-- <span id="enabled_page_leds_<%= page.dom_id %>"><%= render :partial=>'enabled_page_leds', :locals=>{:page=>page} %></span>	 -->
+<% 
+pos_style=""
+if page.children.size<2
+	pos_style="display:none"
+end	
+%>
+<%= link_to ( image_tag(CMS_ICONS['updown'], :alt=>"Order pages "[:order_pages],:style=>pos_style, :id=>'order_'+page.dom_id) , :action=>'positions', :parent_id=>page.id )  %>
+</span>
+<div id="new_page_<%= page.dom_id %>"></div> 
+<ol id="sub_<%= page.dom_id %>">
+<% if page.children.size>0 %>
+	<% page.children.each do |child| %>
+	<%= render :partial=>'sub_page', :locals=>{:child=>child} %>
+	<% end -%>
+<% end %>
+</ol>
+</li>
+

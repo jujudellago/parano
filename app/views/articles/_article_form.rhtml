@@ -1,0 +1,46 @@
+<%= fieldset_legend("Basic informations") %>
+				<div><label for="article_title"><%= "Title" %></label><%= f.text_field :title, 	:size => 40 %></div>
+				<div><label for="article_category"><%= "Category" %></label>
+				<%= f.collection_select (:category_id, Category.find(:all), :id, :name, {:include_blank => true}, {:onchange => "set_calendar_select_visibility()",:label=>"Category" })%>
+				</div>
+				<% agenda_style=""
+				published_style="style=\"display:none\""
+				unless @article.category_id==6
+					agenda_style="style=\"display:none\""
+					published_style=""
+				end
+				 %>
+				<div <%= agenda_style %> id="calendar_select_div"><%= calendar_date_select_tag "article[event_date]", @article.event_date, :embedded => false,:year_range =>2001..2012,:id=>'article_event_date',:label=>"Date" %></div>   
+					<div id="published_select_div" <%= published_style %>>
+						<% if @article.published %>
+						<%= calendar_date_select_tag "article[published_at]", @article.published_at.to_date, :embedded => false,:year_range =>2001..2012,:id=>'article_published_at',:label=>"Publish Date" %>   
+						<% end %>	
+						</div>
+						<p>&nbsp;</p>
+				
+						<div><label for="article_with_comments"><%= "With comments" %> </label><i><%= f.check_box :with_comments %> <%= "Adds a comment link to " %><%= COMMENTEMAIL %></i><%= link_to_comment("(title of the article)","a link to the page will be displayed in the body text of the email",false)  %></div>
+					<%= fieldset_end %>
+				
+					<%= fieldset_legend("Synopsis") %>
+					<div><%= f.text_area :synopsis,  {:rows => 15, :cols => 80, :class => 'input-default tiny_mce' } %></div>
+					<%= fieldset_end %>
+					<%= fieldset_legend("Body") %>
+						<div><%= f.text_area :body,  {:rows => 20, :cols => 80, :class => 'input-default tiny_mce' } %></div>
+					<%= fieldset_end %>
+	
+				<% unless @article.new_record? %>
+					<%= fieldset_legend("Image") %>
+						<div id="icons_list"  >
+				  			<%= render(:partial => 'icon', :locals => { :icon => @icon,:no_icon=>false}) %>
+						</div>
+					<%= fieldset_end %>
+	<% end %>
+
+
+	<!-- <a href=# onclick="check_article_form('article_form');return false;">toto</a> -->
+	<script type="text/javascript">
+	var frmvalidator  = new Validator("article_form");
+	  frmvalidator.addValidation("article_title","req","<%= "Title can't be blank" %>");
+	  frmvalidator.addValidation("article_category_id","dontselect=0","<%= "Please select a category" %>");
+	</script>
+

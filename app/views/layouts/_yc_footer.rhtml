@@ -1,0 +1,53 @@
+<div id="footer">
+	<div id="footer_container">
+		<div class="col3">
+		
+			<% if logged_in? && current_user.is_editor? -%>
+			<%= render :partial =>'/layouts/editor_menu'-%>
+			<% end -%>
+		</div>
+		<div class="col3center">
+				<% if logged_in?%>
+				<%= render :partial =>'/layouts/user_menu' -%>
+				<% end -%>
+			
+			
+			<ul class="links"><% if logged_in? -%>
+			<li><%= link_to("Logout".t,logout_path) %></li>
+			<% else -%>
+			<li><%= link_to("Login".t,login_path) %></li>
+			<% end -%>
+			<li><%= link_to("Site map".t, sitemap_url) %></li>
+			<li><a href="#">RSS</a></li>
+			</ul>
+		</div>
+		<div class="col3">
+			<h2>
+				Praesent
+			</h2>
+			<ul>
+				<li>
+					<a href="index.html">consequat molestie</a>
+				</li>
+				<li>
+					<a href="index.html">sem justo</a>
+				</li>
+				<li>
+					<a href="index.html">semper</a>
+				</li>
+				<li>
+					<a href="index.html">magna sed purus</a>
+				</li>
+				<li>
+					<a href="index.html">tincidunt</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="bottom">
+		<span class="left">© 2008 <a href="http://www.yabo-concept.ch">www.yabo-concept.ch</a>. Valid 
+			<a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>.</span>
+		 <span class="right">Template design by <a href="http://www.nodethirtythree.com/">NodeThirtyThree Design</a> and <a href="http://templates.arcsin.se">Arcsin</a></span>
+		<div class="clearer"></div>
+	</div>
+</div>

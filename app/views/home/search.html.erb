@@ -1,0 +1,60 @@
+<% 
+title="Search results for".t+" <em>#{@query}</em>"+" <span class=\"small\">#{@hits} "+"hits".t+"</span>"
+@page_title=title.cleanup_html  %>
+<h2><%= @page_title %></h2>
+<div class="contentText">
+
+<%# link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
+<%# pagination_links(@pages, :params => { :query=> @query }) %>
+<%# link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
+
+
+<%
+
+if (@found_pages.size>0) %>
+<h3><u><%= "Pages".t %></u></h3><br />
+<%	
+i=1
+@found_pages.each do |page| 
+	last=""
+	if i==@found_pages.size
+		last="id=\"last_news\"" 
+	end	
+	%>	
+	<div class="newslist" <%= last %> >
+		<h4><%= page.title %></h4>
+		<p><%=  page.description %></p>
+		<p><%= link_to(page.display_link,page_path(page)) %></p>
+		</div><%
+		i=i+1
+	end 
+end
+if (@found_articles.size>0)
+	i=1
+	%>
+<h3><u><%= "Articles".t %></u></h3><br />
+<%
+	@found_articles.each do |article| 
+		last=""
+		if i==@found_articles.size
+			last="id=\"last_news\"" 
+		end
+		%>
+	<div class="newslist" <%= last %>>
+	<div class="topdiv"><div class="date"><%= article.display_date.loc("%d. %B %Y") %></div></div>
+	   <h4><%= article.title %></h4>
+	   <p><%=  article.display_description %></p>
+	   <p><%= link_to(article.display_link,article_path(article)) %></p>
+	   </div><%
+		i=i+1
+	end
+end
+if (@hits==0)	
+	%>
+	<h4><%= "No match found".t %></h4>
+	<%
+end
+%>
+</div>
+
+

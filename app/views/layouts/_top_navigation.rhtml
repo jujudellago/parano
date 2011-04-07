@@ -1,0 +1,34 @@
+<ul>
+<%-  
+user_roles=session[:current_user_roles]||=[]
+cache_name="top_nav-"+session[:locale]+"-"+user_roles.sort.join("_")
+cache cache_name do
+@pages = Page.find_all_by_parent_id('0',:order=>'position',:conditions=>'id<1000') 
+@submenus=Array.new
+@pages.each do |page| 
+	submenu=""
+	if page.children.size>0
+		submenu="\n<div id=\"#{page.permalink}\" class=\"dropmenudiv\">"
+		page.children.each do |child|
+			if child.can_be_viewed(session[:current_user_roles]) && child.enabled
+				submenu=submenu+link_to(child.title,formatted_page_path(child,:html))
+			end
+		end
+		submenu=submenu+"</div>"
+		@submenus<<submenu
+		-%>
+		<li><%= link_to(page.title,formatted_page_path(page,:html), :rel=>page.permalink) %></li>
+		<%
+	else
+		-%>
+		<li><%= link_to(page.title,formatted_page_path(page,:html)) %></li>
+		<%
+	end
+end	
+%>
+</ul>
+</div>
+<% @submenus.each do |sub| -%>
+<%= sub -%>
+<% end -%>
+<% end -%>

@@ -1,0 +1,21 @@
+<% unless @right_infos.nil? -%>
+<%= yield :rightbar -%>
+<% end -%>
+
+<% if logged_in? -%>
+<% @cats=Category.find(:all, :order=>'position', :conditions=>'member=1') -%>
+<h4><%= "ACTUALITÉ".t %></h4>
+	<ul><% @cats.each do |category| -%>
+		<li><%= link_to(category.name,news_index_path(:category_permalink=>category.permalink)) %></li>
+	<% end -%></ul>
+<% end %>
+<h4><%= "AGENDA".t %></h4>
+<p>bs fsidf sdfs isjdg sdognds fsdf sdf sdf sdfsdf sf sdg dagdgnd sfhgnsdfogn dsinfh</p>
+<ul>
+	<li><%= link_to("View",news_index_path(:category_permalink=>'agenda')) %></li>
+</ul>
+<h4><%= "TEASER".t %></h4>
+<p>bs fsidf sdfs isjdg sdognds fsdf sdf sdf sdfsdf sf sdg dagdgnd sfhgnsdfogn dsinfh</p>
+<ul>
+	<li><%= link_to("Last edition",page_path(1000)) %></li>
+</ul>

@@ -1,0 +1,10 @@
+<li id="<%= child.dom_id %>"><%=child.title %>  <%= link_to (image_tag(CMS_ICONS['edit'], :alt=>'edit'.t),  edit_page_path(child)	 )%>
+	<%#	link_to( image_tag('/images/icons/konsole.png', :alt=>'Edit HTML code'[:edit_html_code]),edit_page_path(child)	)%>
+<%= link_to_remote  (image_tag(CMS_ICONS['delete'], :alt=>"Destroy".t), :url => page_path(child), 
+	:confirm => "Are you sure you wish to delete this page?".t, :method => :delete) %>
+<%= link_to (image_tag(CMS_ICONS['attach']),page_attachments_path(child)) %>(<%= child.attachments_count %>)
+<%# child.with_comments ? image_tag(CMS_ICONS['comment']) : image_tag(CMS_ICONS['no-comment']) -%>
+	<span id="enabled_page_leds_<%= child.dom_id %>"><%= render :partial=>'enabled_page_leds', :locals=>{:page=>child} %></span>	
+		
+		<span class="small_info_inline"><%= link_to image_tag(CMS_ICONS['visible']),edit_page_path(child,:edit_rights=>'1') %></span>
+ </li>

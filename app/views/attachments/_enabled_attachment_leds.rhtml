@@ -1,0 +1,11 @@
+<%= ajax_spinner_for attachment.dom_id+"_enable_icon" %>
+<% if attachment.enabled -%>
+	<%= link_to_remote(image_tag(CMS_ICONS['cfmd'],:id=>attachment.dom_id+"_enable_icon") , :url => page_disable_attachment_path(:id=>attachment.id), :method => :put,
+    						  :before => "$('#{attachment.dom_id}_enable_icon').hide();$('#{attachment.dom_id}_enable_icon_spinner').show();") %>
+
+   <% else -%>
+	<%= link_to_remote(image_tag(CMS_ICONS['clx'],:id=>attachment.dom_id+"_enable_icon"),  :url => page_enable_attachment_path(:id=>attachment.id), :method => :put,
+    						  :before => "$('#{attachment.dom_id}_enable_icon').hide();$('#{attachment.dom_id}_enable_icon_spinner').show();") %>
+
+
+	<% end -%>

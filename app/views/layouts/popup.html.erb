@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<%= stylesheet_link_tag 'light' , :media=>'screen'%>
+<title><%= @page_title ||=SITE_TITLE %></title>
+</head>
+<body>
+<div id="container">
+	<div id="print_body">
+		<%= yield :layout -%>
+	</div>
+</div>
+</body>
+</html>

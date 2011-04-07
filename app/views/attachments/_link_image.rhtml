@@ -1,0 +1,10 @@
+<h3><%= "Open the image used as icon in full size".t %></h3>
+<% if icon &&  icon.image? && !no_icon%>
+	<div class="icon_image">
+		<%= image_tag(icon.public_filename(:banner),:class=>'icon')-%>
+	</div>
+<% else %>
+	<div class="icon_image">
+<%= image_tag('no-image.jpg',:class=>'icon') %>
+	</div>
+<% end %>

@@ -1,0 +1,4 @@
+#page[ "attachedfiles_form"].replace_html :partial=>'/attachments/upload_file_form'
+page[ "link_file"].replace_html :partial=>'/attachments/attachedfile',  :locals => { :no_attachedfile => true} 
+#page["photo_#{@photo.id}"].visual_effect :puff
+flash.discard

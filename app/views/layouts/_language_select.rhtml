@@ -1,0 +1,19 @@
+<ul>
+<% MENU_LOCALES.sort.each do |key| 
+	cnrtyclass="country_select"
+	cntry_prefix=""
+	cnrtyclass=""
+	aklcass=""
+	if Locale.language
+		if (key==Locale.language.code)
+			cnrtyclass='country_select_strong'
+			cntry_prefix='_selected'
+			aklcass="selected"
+		end
+	end	-%>
+	<% unless key=="en" %>
+	<li><%=  link_to(key.upcase,  { :params=>params.merge(:controller => controller.controller_name, :action => controller.action_name, :locale => key)}, :class=>aklcass) -%></li>
+	<% end %>
+<% end -%>
+</ul>
+<%# params.merge(params) %>

@@ -1,0 +1,57 @@
+<h2><%= "Listing editor images".t %></h2>
+<div id="images_editor_container">
+<p><%= "Images used in the content management system".t %></p>
+<p><strong><%= "The images can only be destroyed if they are not present in any pages or articles".t %></strong></p>
+
+<table class="fancytable" id="user_table">
+<% for image in @images %>
+<% image_used=false 
+size=image.size/1000
+label="<b>#{image.filename}</b><br> #{image.width.to_s}x#{image.height.to_s}   (#{size.to_s} kb) <br>#{"created".t}: #{image.created_at.loc("%d. %B %Y")}"
+css_class=cycle('odd', 'even')
+#css_class= user.enabled ? css_class : "disabled_user"
+ %>
+<tr class="<%= css_class -%>">
+    <td>
+<%= lightbox_link_to(image_tag( image.public_filename(:thumb),:style=>'padding:5px',:border=>'0' ), image.public_filename, :title=>label) %><br />
+<small><i><%= "Click to enlarge".t %></i></small>
+	</td>
+		<td ><%= label %></td>
+	<td valign="top">
+		<% pages=Page.find(:all,:conditions=>"body like '%#{image.public_filename}%' or body_en like '%#{image.public_filename}%' or body_de like '%#{image.public_filename}%'") %>
+		<% if pages.size>0 
+			image_used=true
+			s=pages.size>1 ? "s" : ""
+			%>
+			<strong><%= "Used in page#{s}".t %></strong>
+				<ul>
+				<% pages.each do |page| %>
+					<li><%= page.title %> <%= link_to(image_tag(CMS_ICONS['edit'], :alt=>"Edit".t,:border=>'0'),edit_page_url(page) ) %></li>
+				<% end %>
+			   </ul>
+	
+		<% end %>
+		<% articles=Article.find(:all,:conditions=>"body like '%#{image.public_filename}%' or synopsis like '%#{image.public_filename}%'") %>
+		<% if articles.size>0 
+			image_used=true
+			s=articles.size>1 ? "s" : ""
+			%>
+			<strong><%= "Used in article#{s}:".t %></strong>
+				<ul>
+				<% articles.each do |article| %>
+					<li><%= article.title %> <%= link_to(image_tag(CMS_ICONS['edit'], :alt=>"Edit".t,:border=>'0'),edit_article_url(article)) %></li>
+				<% end %>
+				</ul>
+	
+		<% end %>
+	</td>
+
+   
+    <td><%= link_to(image_tag(CMS_ICONS['delete'], :alt=>"Destroy".t,:border=>'0'), editor_image_path(image), :confirm => 'Are you sure?', :method => :delete) unless image_used %></td>
+  </tr>
+
+<% end %>
+</table>
+
+<br />
+</div>

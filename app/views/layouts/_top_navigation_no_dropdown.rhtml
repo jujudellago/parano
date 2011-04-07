@@ -1,0 +1,33 @@
+<% 	if params[:controller]=="home" 
+	klass="active"
+ end %>
+<ul>
+	<li><%= link_to("Home".t,index_path,:class=>klass) %></li>
+<%-  
+
+cache_name="top_nav"
+@pages = Page.find_all_by_parent_id('0',:order=>'position',:conditions=>'id<1000') 
+@pages.each do |page| 
+	klass=""
+	if params
+		if params[:controller]=="pages"
+			if params[:id]==page.to_param
+				klass="active"
+			end
+			if page.children
+				if page.children.collect(&:to_param).include?(params[:id])
+					klass="active"
+				end
+			end
+		end
+	end
+		-%>
+		<li><%= link_to(page.title,formatted_page_path(page,:html),:class=>klass) %></li>
+		<%
+end	
+%>
+<li><%= link_to("Galeries photo",galleries_url) %></li>
+<li><%= link_to("Accès",map_url) %></li>
+</ul>	
+
+

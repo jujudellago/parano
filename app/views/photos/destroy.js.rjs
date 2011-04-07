@@ -1,0 +1,2 @@
+page["photo_#{@photo.id}"].visual_effect :puff
+#page.remove "photo_#{@photo.id}" 

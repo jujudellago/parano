@@ -1,0 +1,47 @@
+<%
+
+fancy_images=true
+if admin? || (browser_is? :ie)
+	fancy_images=false
+end
+
+defimg=false
+if (photo.id==@gallery.default_photo_id)
+	defimg=true
+end
+
+stle="style=\"margin-bottom:20px\""
+if admin? 
+	brd="333"
+	if defimg
+		brd="ff7a19"
+	end
+	stle="style=\"width:150px; height:250px;border:1px solid ##{brd};margin-bottom:20px;padding:3px\""
+end %>
+<li id="photo_<%= photo.id %>" <%= stle %> >
+<% if photo.image? %>
+	<% if admin? %>
+		<%= image_tag(photo.public_filename(:thumb)) %>
+	<% else %>
+		<%= light_photo(photo,fancy_images) %>
+	<% end %>
+<% end %>
+<% if admin? %><br />
+
+<div class="edit_photo_details">
+<%= link_to_remote(image_tag('/images/icons/cancel.png',:align=>'right'), {:url => gallery_photo_path(:gallery_id=>@gallery,:id=> photo.id), :method => :delete, :confirm => "are you sure?"[:are_you_sure]},:class=>"admin_hover_links") %>
+<strong><%= "Name"[:name] %></strong>:<br /> <%= content_tag(:span, (photo.name.blank? ? '&nbsp;' : photo.name), :id => "gallery_photo_#{photo.id}") %>
+<%= in_place_text_field :photo, :name, :object=>photo  %><br />
+<strong><%= "Description"[:description] %></strong>:<br /> <%= content_tag(:span, (photo.legend.blank? ? '&nbsp;' : photo.legend), :id => "gallery_photo_desc_#{photo.id}") %>
+<%= in_place_text_field :photo, :legend, :object=>photo  %><br />
+</div>
+
+<% if defimg %>
+<h4><%= "Default image" %></h4>
+<% else %>
+<br />&gt;&nbsp;<%= link_to "Set as default gallery image",default_gallery_photo_url(photo),:class=>"admin_hover_links" %>
+<% end %>
+<%= image_tag('/images/icons/updownarrow.png',:align=>'right',:style=>"cursor:move") %>
+<% end %>
+</li>
+

@@ -1,0 +1,49 @@
+<h1>Listing icons</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+  
+<% for icon in @icons %>
+  <tr>
+	<td><%= icon.inspect %></td>
+<td><%=h icon.thumbnail          %></td>
+    <td><%=h icon.filename %></td>
+<td><%= icon.public_filename(:banner) %></td>
+<td><%=h icon.width              %></td>
+<td><%=h icon.height             %></td>
+<td><%=h icon.content_type       %></td>
+<td><%=h icon.size               %></td>
+
+<td><%=h icon.parent_id          %></td>
+<td><%=h icon.created_at         %></td>
+<td><%=h icon.updated_at         %></td>
+<td><%=h icon.type               %></td>
+<td><%=h icon.attachable_type    %></td>
+<td><%=h icon.attachable_id      %></td>
+
+
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+
+
+
+       
+<!-- name            
+filename        
+width           
+height          
+content_type    
+size            
+thumbnail       
+parent_id       
+created_at      
+updated_at      
+type            
+attachable_type 
+attachable_id    -->

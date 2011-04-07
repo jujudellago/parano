@@ -1,0 +1,31 @@
+<div id="attachments">
+
+<h2><%= "Update the attachments positions" %></h2>
+<div class="sortable_container">
+
+	<div id ="position_infos">
+		<p><%="Drag & drop the attachments to updated their position".t %></p>
+			<p><strong><%="The images always stay at the bottom".t %></strong></p>
+	</div>
+<ul id="attachments_container">
+<% @i=1 %>
+  <% @attachments.each do |attachment| %>
+
+	<%= render :partial => 'order_attachment', :locals=>{:attachment=>attachment} %>
+	<% @i=@i+1 %>
+  <% end %>
+</ul>
+<div id="confirm_message" style="display:none"><%= "Positions Saved !".t %></div>
+<%= ajax_spinner_for "order_attachment", "banner-loader.gif" %>
+<div class="back_button"><%= link_to("Back to attachments".t, page_attachments_path) %></div>	
+</div>
+<%= sortable_element('attachments_container', :update => 'attachments', :url => {:action => :update_positions, :language_code=> @language_code,:page_id=>@page.id}, 
+	:before => "$('confirm_message').hide();$('order_attachment_spinner').show();",
+	#:complete => {visual_effect(:highlight, "attachments_container"),visual_effect(:highlight, "attachments_container") })
+	:complete =>"new Effect.Highlight('attachments_container');$('confirm_message').show();new Effect.Highlight('confirm_message',{duration:3});new Effect.Fade('confirm_message');")
+	
+	
+	%>
+	</div>
+
+

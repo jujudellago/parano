@@ -1,0 +1,13 @@
+<h2><%= "Article Image".t %></h2>
+<div id="pages_editor_container">
+<div class="contentText">
+		<fieldset>	<legend><%="Image".t %>:</legend>
+			<div id="icons_list"  >
+	  			<%= render(:partial => 'icon', :locals => { :icon => @icon,:no_icon=>false}) %>
+			</div>
+		</fieldset>
+<%= submit_tag("Finish".t, :class=>'fancy_ok',:onclick=>"window.location.href='#{articles_url(:category_id=>@article.category_id)}'") %>
+</div>
+</div>
+<%= render(:partial => 'upload_icon_form')%>
+<%= upload_frame %>

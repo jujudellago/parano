@@ -1,0 +1,17 @@
+#page.alert("parent is #{ @parent_id}")
+page['pages_form'].reset
+page[:form_container].toggle
+flash.discard
+if @parent_id==0
+  page.insert_html :bottom, :pages_list, :partial=>'page', :object=>@page
+  page[@page.dom_id].visual_effect :highlight 
+else
+  if @parent.children.size>1
+    #page.alert('order_'+@parent.dom_id)
+    page['order_'+@parent.dom_id].show
+    page['order_'+@parent.dom_id].visual_effect :pulsate
+  end
+   #page.alert("try to insert at  is sub_page_#{@parent_id}")
+   page.insert_html :bottom,"sub_page_#{@parent_id}",  :partial=>'sub_page', :locals=>{:child=>@page}
+   page["sub_page_#{@parent_id}"].visual_effect :highlight, :endcolor => '#efefef', :startcolor => '#93FFAC', :duration=>2
+end

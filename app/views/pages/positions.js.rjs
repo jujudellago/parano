@@ -1,0 +1,4 @@
+page.select("#pages_container li span").each do |element|
+  element.visual_effect :highlight
+end
+page.alert('toto')

@@ -1,0 +1,25 @@
+<div id="articles">
+ <h2><%= "Update the articles positions for homepage".t %></h2>
+<div class="sortable_container">
+	<div id ="position_infos">
+		<p><%="Drag & drop the articles to updated their position".t %></p>
+	</div>
+<ul id="articles_container">
+  <% @articles.each do |article| %>
+	<%= render :partial => 'order_articles', :locals=>{:article=>article} %>
+  <% end %>
+</ul>
+<div id="confirm_message" style="display:none"><%= "Positions Saved !".t %></div>
+<%= ajax_spinner_for "order_article", "banner-loader.gif" %>
+<div class="back_button"><%= link_to("Back to articles".t, articles_url( :category_id=>1)) %></div>	
+
+<%= sortable_element('articles_container', :update => 'articles', :url => {:action => :update_positions, :language_code=> @language_code}, 
+	:before => "$('confirm_message').hide();$('order_article_spinner').show();",
+	:complete =>"new Effect.Highlight('articles_container');$('confirm_message').show();new Effect.Highlight('confirm_message',{duration:3});new Effect.Fade('confirm_message');")
+	#:complete =>"new Effect.Highlight('pages_container');$('confirm_message').show();") 	
+	%>
+	
+		
+</div>
+
+</div>

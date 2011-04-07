@@ -1,0 +1,14 @@
+<div id="form_container" style="display:none" class="overlay_form">
+<h2 class="no_line"><span id="info_page_form"><%= 'Add parent page'.t %></span></h2>
+<% form_remote_for (:page, :url => pages_path, :html => { :id => 'pages_form' }) do |f| %>
+<p><strong><%= 'Page title'.t %></strong>:
+<%= f.hidden_field :parent_id, :value=>'0' , :id=>'parent_hidden' %>
+<span id="page_inputs"><%= f.text_field :title, :size=>40 %><%= submit_tag 'Submit'.t, :id=>'submit_page_form', :class=>'fancy_ok' %>
+<%= button_to_function 'Cancel'.t, :class=>'fancy_nok' do |page| 
+	page[:form_container].toggle
+	page['pages_form'].reset
+end %>
+<% end  #end form %>
+</span>
+</p>
+</div>

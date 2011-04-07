@@ -1,0 +1,69 @@
+<h2><%= "Vous voulez vous abonner au flux RSS ?".t %></h2>
+<div class="contentText">
+<% unless logged_in? -%>
+	<p><%= "Cette prestation, tout comme l’accès à l’ensemble des actualités, est exclusivement réservée aux <strong>membres de la CCFR</strong>. Si vous êtes membres, 
+		vous pouvez poursuivre la lecture.".t %> <%= link_to("En vous identifiant".t, login_url) %></p>
+	<% else %>
+		<% if @session[:locale] =="de"%>
+		<p>Diese Dienstleistung ist – wie der gesamte Zugang zu den Aktualitäten – exklusiv für <strong>Mitglieder der Freiburger Handelskammer</strong> reserviert.</p>
+		
+	<p>	Die Handelskammer Freiburg versorgt Sie ständig mit den neusten Neuigkeiten. Der RSS-Feed ermöglicht es Ihnen, Ihren persönlichen RSS-Reader mit wichtigen News zu versorgen.
+	</p>	
+	<p>&nbsp;</p>
+	<h3>Wozu dienen RSS-Feeds?</h3>
+		
+	<p>	Sie möchten permanent auf dem Laufenden sein, ohne täglich mehrmals die Homepage der Handelskammer Freiburg aufsuchen zu müssen? Das Abonnement
+		 für den RSS-Feed garantiert, dass Sie umgehend benachrichtigt werden, sobald News aufgeschaltet werden.	</p>	
+		
+	<p>	Für weiterführende Informationen zum Thema RSS:  <%= link_to "http://de.wikipedia.org/wiki/RSS-Feed","http://de.wikipedia.org/wiki/RSS-Feed",:target=>"_blank" %></p>	
+	<p>&nbsp;</p>
+		<h3>Systemvoraussetzungen</h3>
+		
+	<p>	Falls Sie nicht ohnehin schon darüber verfügen, benötigen Sie eine Site oder eine Software, welche RSS-Feeds lesen und darstellen kann.</p>
+	<ul>	
+  		<li><strong>Für Windows: </strong>        Internet Explorer 7, RssReader  </li>
+  		<li><strong>Für Mac OS X: </strong>       Newsfirerss,  NetNewsWire       </li>
+  		<li><strong>Für alle Plattformen:</strong>Thunderbird, Firefox            </li>
+	</ul>	
+	<p>	Zudem gibt es zahlreiche Anbieter im Internet, die geeignete Gratissoftware zum Download anbieten. </p>
+
+	<p><strong>	Online-Reader ohne Softwareinstallation:</strong></p>
+		
+			<ul><li><%= link_to "Rss.ch","http://www.rss.ch" %>, <%= link_to "netvibes.com","http://www.netvibes.com" %>, <%= link_to "google.com/reader","http://www.google.com/reader" %></li></ul>
+			<p>&nbsp;</p>
+		<h3>Wie können Sie den RSS-Feed der Handelskammer Freiburg nutzen?</h3>
+		<ul>
+		<li> Kopieren Sie den folgenden Link: <br /><%= link_to "http://#{SERVER_URL}/rss/xml/news.xml","http://#{SERVER_URL}/rss/xml/news.xml" %></li>
+		<li> Fügen Sie den Link in Ihren RSS-Reader ein und folgen Sie den Anweisungen.					            					   </li>
+		<li>Sie erhalten nun jedesmal eine Nachricht, wenn auf der Site der Handelskammer Freiburg News aufgeschaltet werden.               </li>
+		</ul>
+		<% else %>
+		<p>Cette prestation, tout comme l’accès à l’ensemble des actualités, est exclusivement réservée <strong>aux membres de la CCFR.</strong> Si vous êtes membres, 
+			vous pouvez poursuivre la lecture.</p>	
+			<p>La Chambre de Commerce Fribourg met en permanence à votre disposition les dernières nouvelles. Le flux RSS vous permet d’alimenter votre lecteur de news personnel.</p>
+			<p>&nbsp;</p>
+			<h3>A quoi ça sert ?</h3>
+			<p>Vous avez envie de connaître les dernières nouvelles publiées sans aller sur le site de la CCFR plusieurs fois par jour ? L’abonnement au flux RSS vous garantit de recevoir l’information immédiatement lorsqu’un nouveau contenu est mis en ligne.
+			Plus d’informations sur <%= link_to "http://fr.wikipedia.org/wiki/RSS_(format)","http://fr.wikipedia.org/wiki/RSS_(format)",:target=>"_blank" %></p>
+			
+			<p>&nbsp;</p>
+			<h3>Que devez-vous installer ? </h3>
+			<p>Il vous faut, si vous ne l’avez pas encore, un site ou un logiciel de lecture pour le RSS.</p>
+			<ul>
+				<li><strong>Pour Windows :</strong> 	   Internet Explorer 7, RssReader   </li>
+				<li><strong>Pour Mac OS X :</strong>    Newsfirerss,  NetNewsWire           </li>
+				<li><strong>Pour tous:  </strong> 	   Thunderbird, Firefox                 </li> 
+			</ul>
+			<p>De nombreux logiciels gratuits de ce type sont téléchargeables.</p>
+			<p><strong>Sans installation, pour une utilisation en ligne :</strong></p>
+			<ul><li><%= link_to "Rss.ch","http://www.rss.ch" %>, <%= link_to "netvibes.com","http://www.netvibes.com" %>, <%= link_to "google.com/reader","http://www.google.com/reader" %></li></ul>
+			<p>&nbsp;</p>
+			<h3>Comment utiliser le RSS de la CCFR ?</h3>
+			<ul>
+				<li>	Copiez le lien suivant.<br /> <%= link_to "http://#{SERVER_URL}/rss/xml/news.xml","http://#{SERVER_URL}/rss/xml/news.xml" %></li>
+				<li>	Introduisez-le dans votre lecteur et suivez les consignes   														  </li>
+				<li>	Vous recevez un avertissement lors de chaque mise à jour des actualités CCFR.  										  </li>
+			</ul>
+		<% end %>
+	<% end %>
+</div>

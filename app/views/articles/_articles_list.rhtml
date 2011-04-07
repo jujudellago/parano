@@ -1,0 +1,62 @@
+<% tabnav :articles do %>
+	<div id="ddcolortabsline">&nbsp;</div>
+<% 
+mode="all"
+table_headers=Array.new
+table_headers<<'Image'.t
+unless @category
+	table_headers<<'Category'.t
+end
+table_headers<<'Title'.t
+if @category
+	if @category.id==6
+		table_headers<<'Date'.t
+		mode="agenda"
+	else
+		mode="category"
+	end
+end
+table_headers<<'Created'.t+"/"+'Updated'.t
+
+table_headers<<'Published?'.t
+table_headers<<''
+table_headers<<''
+table_headers<<''
+
+-%>
+<div id="loading_articles" style="display:none" ><h1>Loading <%= image_tag('spinner.gif') %></h1></div>
+<%
+if @articles.size>0
+oldlng=""
+ html_table(@articles, table_headers, :table_class=>"fancytable") do |article, klass|  %>
+<% if  @homepage_list %>
+<tr>
+	<td colspan="<%= table_headers.size %>"> <%= link_to("positions".t, positions_articles_path) %></td>
+</tr>
+<% end %>
+   <tr class="<%= klass %>" id="<%= article.dom_id %>">
+	<td><%= link_to(article_icon(article),image_article_path(article)) %></td>
+	<% if mode=="all" %>	
+ 		<td><%=  article.category.name%></td>
+	<% end %>	
+
+	<td><%= link_to article.title ,  article_path(article)%></td>
+	<% if mode=="agenda" %>	
+ 		<td><%= article.event_date.loc("%d. %B %Y") unless article.event_date.nil? %></td>
+	<% end %>
+	<td><span class="small_info"><%= article.created_at.loc("%d. %B %Y") unless article.created_at.nil? %><br /><%= article.updated_at.loc("%d. %B %Y") unless article.created_at.nil? %></span></td>
+	<td><span id="published_article_leds_<%= article.dom_id %>"><%= render :partial=>'article_published_leds', :locals=>{:article=>article} %></span></td>
+	<td><span id="comment_article_<%= article.dom_id %>"><%= render :partial=>'article_comment', :locals=>{:article=>article} %></span></td>
+	
+    <td><%= link_to (image_tag(CMS_ICONS['edit'], :alt=>'edit'.t),  edit_article_path(article)	 )%></td>
+    <td><%= link_to_remote  (image_tag(CMS_ICONS['delete'], :alt=>"Destroy".t), :url => article_path(article), 
+		:confirm => "Are you sure you wish to delete this article?".t, :method => :delete) %></td>
+  </tr>
+<% end %>
+<% else %>
+<p><%= "No articles to display".t %></p>
+<% end %>
+<br />
+<% end %>
+<%= will_paginate(@articles) %>
+<%= button_to 'New article', new_article_path(:category_id=>@category_id), :class=>'fancy_button',:method=>'get' %>

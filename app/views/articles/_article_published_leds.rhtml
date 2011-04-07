@@ -1,0 +1,12 @@
+<%= ajax_spinner_for article.dom_id+"_publish_article" %>
+    <% if article.published -%>
+	<%= link_to_remote(image_tag(CMS_ICONS['cfmd'],:id=>article.dom_id+"_publish_icon") , :url => disable_article_path(:id=>article.id), :method => :put,
+     						  :before => "$('#{article.dom_id}_publish_icon').hide();$('#{article.dom_id}_publish_article_spinner').show();") %>
+<%= article.published_at.loc("%d. %B %Y") if article.published_at%>
+
+    <% else -%>
+	<%= link_to_remote(image_tag(CMS_ICONS['clx'],:id=>article.dom_id+"_publish_icon"),  :url => enable_article_path(:id=>article.id), :method => :put,
+     						  :before => "$('#{article.dom_id}_publish_icon').hide();$('#{article.dom_id}_publish_article_spinner').show();") %>
+
+
+	<% end -%>

@@ -1,0 +1,17 @@
+<% content_for :head do%>
+<%= javascript_include_tag 'tiny_mce/tiny_mce.js' %>	
+<% end %>
+
+<h2><%= "Create a new Page"[:create_new_page] %></h2>
+<%= use_tinymce  %>
+<%= error_messages_for :page %>
+<div id="pages_editor_container">
+<fieldset><legend></legend>
+<% form_for :page, :url => pages_url, :html => { :method => :post,:id=>'page_form' } do |f| -%>
+	<%= render(:partial => '/pages/form', :locals=>{ :f=>f})%>
+		<%= fieldset_legend("Action".t) %>
+		<%= submit_tag "Create".t, :class=>'fancy_ok' %> 
+	<% end %>
+	<%= button_to 'Cancel'.t, admin_pages_path, :class=>'fancy_nok',:method=>:get %>
+<%= fieldset_end %>
+</div>

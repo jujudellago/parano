@@ -1,0 +1,38 @@
+<p>
+  <b>Name:</b>
+  <%=h @attachment.name %>
+</p>              
+                  
+<p>               
+  <b>Url:</b>     
+  <%=h @attachment.url %>
+</p>              
+                  
+<p>               
+  <b>Legend:</b>  
+  <%=h @attachment.legend %>
+</p>              
+                  
+<p>               
+  <b>Enabled:</b> 
+  <%=h @attachment.enabled %>
+</p>              
+                  
+<p>               
+  <b>Position:</b>
+  <%=h @attachment.position %>
+</p>              
+                  
+<p>               
+  <b>Page:</b>    
+  <%=h @attachment.page_id %>
+</p>              
+                  
+<p>
+  <b>Language code:</b>
+  <%=h @attachment.language_code %>
+</p>
+
+
+<%= link_to 'Edit', edit_page_attachment_path(@attachment) %> |
+<%= link_to 'Back', page_attachments_path %>

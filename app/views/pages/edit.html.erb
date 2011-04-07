@@ -1,0 +1,16 @@
+<% content_for :head do%>
+<%= javascript_include_tag 'tiny_mce/tiny_mce.js' %>	
+<% end %>
+<%= use_tinymce  %>
+
+<h2><%= "Edit Page".t+" \""+@page.title+"\"" %></h2>
+<div id="pages_editor_container">
+<%= error_messages_for :page %>
+<% form_for :page, :url => page_url(@page), :html => {:method=>:put,:id=>'page_form'} do |f| -%>
+	<%= render(:partial => '/pages/form', :locals=>{ :f=>f})%>
+		<%= fieldset_legend("Action".t) %>
+		<%= submit_tag "update".t, :class=>'fancy_ok' %> 
+	<% end %>
+	<%= button_to 'Cancel'.t, admin_pages_path, :class=>'fancy_nok',:method=>:get %>
+<%= fieldset_end %>
+</div>

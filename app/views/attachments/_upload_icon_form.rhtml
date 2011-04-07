@@ -1,0 +1,11 @@
+<div id="icons_form" class="overlay_form" style="display:none">
+<% form_for(:icon, :url => page_attachment_icons_path(:attachment_id=>@attachment.id,:format => 'js'),:html => { :multipart => true, :target => 'upload_frame', :id=>'fu_form' }) do |ff| %>
+<h2 class="no_line"><%= "Select an image".t %></h2>
+<%= ff.file_field :uploaded_data %></p>
+<%= submit_tag "Upload".t, :class=>'fancy_ok' %><%= button_to_function 'Cancel'.t, :class=>'fancy_nok' do |page| 
+		page[:icons_form].toggle
+		page['fu_form'].reset
+	end %>
+<% end %>
+</div>
+

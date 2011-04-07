@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+
+	Nonzero1.0 by nodethirtythree design
+	http://www.nodethirtythree.com
+	missing in a maze
+
+-->
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<%= render :partial =>'/layouts/headers'%>
+	<%= render :partial =>'/layouts/styles'%>
+	<%= yield :head %>
+</head>
+<body>
+<div id="header">
+		<% unless @no_fancy_flash -%>
+		<%= render :partial =>'/layouts/page_header' -%>
+		<% end -%>
+	<div id="header_inner" class="fixed">
+		<div id="logo">
+			<!-- <h1><%= SITE_TITLE %></h1>
+					<h2><%= SITE_SUB_TITLE %></h2> -->
+		</div>
+		<div id="menu">
+			<%= render :partial =>'/layouts/top_navigation_no_dropdown' %>
+		</div>
+		
+	</div>
+</div>
+<div id="main">
+	<div id="main_inner" class="fixed">
+	
+		<div id="primaryContent_3columns">
+			<div id="columnA_3columns">
+				<%= render :partial =>'/layouts/ie_warning' -%>
+				<%= yield :layout -%>
+			</div>
+		</div>
+		<div id="secondaryContent_3columns">
+			<div id="columnB_3columns">
+				<h4><span><%= "Search".t %></span></h4>
+					<% form_tag (search_path)  do %>
+					<div id="search">
+					<%= text_field_tag :query, nil, :class=>"text" %>
+					<%= submit_tag 'Go' , :class=>"button" %>
+					<br class="clear" />
+					</div>
+					<% end %>	
+				<!-- <h4><span>About</span> Me</h4>
+					<p><strong>Veroeros sed</strong> varius sollici, arcu. Vivamus et viverra. tor. Aenean felis. Quisque eros. <a href="#">Lorem ipsum dolor</a>.</p> -->
+			
+							<!-- <ul class="links"> -->
+						<% user_roles=session[:current_user_roles]||=[] 	
+					 	unless @parent.nil? -%>
+						<h4><%= split_title(@parent.title) %></h4>
+							<% 	menu_cache_name="pagelinks-#{@parent.id}-"+session[:locale]+"-"+user_roles.join("_")
+								cache menu_cache_name do -%>
+									<%= get_sub_page_menu(@parent,false,false,"links") -%>
+								<% end -%>
+						<% end -%>
+
+						<% unless @page.nil? -%>
+							<h4><%= split_title("Related links".t) %></h4>
+									<% menu_cache_name="pageattachments-#{@page.id}-"+session[:locale]+"-"+user_roles.join("_") 
+										cache menu_cache_name do %>
+											<%=	get_page_attachments(@page) -%>
+									<% end -%>
+						<% end -%>
+			
+			
+			
+				<% unless @article.nil? -%>
+					<% if @article.icon -%>
+					<div class="imageLeftCol">
+						<%= image_tag(@article.icon.public_filename(:banner)) -%>
+					</div>
+					<% end -%>
+				<% end -%>
+				<% unless (@articles.nil? && @category.nil?) -%>
+					<div class="relatedLinks">
+						<%
+						 menu_cache_name="archives-#{@category.id}-"+session[:locale]+"-"+user_roles.join("_") 
+							cache menu_cache_name do 
+								%>
+							<h4><span><%= "Archives:".t %></span> <%= @category.name %></h4>
+							<%# JujuHelper.archives_structure_linked(@articles, @category.permalink) %>
+							<%= JujuHelper.archives_structure_linked(@category.articles.find_all_for_archive(@category,session[:locale]), @category.permalink) %>
+						<% end -%>
+					</div>
+				<% end %>
+
+			</div>
+			
+			<div id="columnC_3columns">
+	
+	<%= render :partial =>'/layouts/right_banner_yc' -%>
+
+			</div>
+		</div>
+		<br class="clear" />
+	</div>
+</div>
+<%= render :partial => 'layouts/yc_footer' %>
+</body>
+</html>

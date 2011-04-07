@@ -1,0 +1,31 @@
+<% cssKlass= cycle('odd', 'even') 
+if !attachment.enabled
+	#cssKlass="clx"
+end
+
+%>
+<li id="<%= attachment.dom_id %>" class="<%= cssKlass %>">
+<table class="no_border">
+	<tr>	
+<td><h3><%= @i %></h3></td><td class="attachment_display">
+<%= display_attachment(attachment) %></td>
+<td >
+<%= link_to image_tag(CMS_ICONS['edit'], :alt=>'edit'.t), edit_page_attachment_path(attachment) %>
+	<span id="enabled_attachment_leds_<%= attachment.dom_id %>"><%= render :partial=>'enabled_attachment_leds', :locals=>{:attachment=>attachment} %></span>
+
+
+
+<%= link_to image_tag(CMS_ICONS['delete'], :alt=>"Destroy".t), page_attachment_path(attachment), :confirm => 'Are you sure you want to delete this attachment?'.t, :method => :delete %>
+<br />
+<span class="small_info_inline"><%= link_to image_tag(CMS_ICONS['visible']),edit_page_attachment_path(attachment,:edit_rights=>'1') %>
+<% if attachment.roles.size>0 -%>
+<span class="small_info_red"><%= attachment.roles.collect(&:name).join(", ") -%></span>
+<% else -%>
+<%= "public".t -%>
+<% end -%>
+</span>
+
+</td>
+</tr>
+</table>
+</li>

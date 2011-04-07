@@ -1,0 +1,26 @@
+<%- 
+startp=false 
+endp=false
+unless article.synopsis.nil?
+	synop=article.synopsis.strip
+	unless synop.starts_with?("<p>") 
+	startp=true
+	end
+	unless synop.ends_with?("</p>") 
+	 endp=true
+	end
+end
+-%>
+<div class="entry">
+   
+    <!-- <div class="entrymeta"><%= article.published_at.loc("%d. %B %Y")  %> </div> -->
+    <div class="entrybody">
+	 <h3 class="entrytitle"> <%= link_to("#{article.title}",formatted_article_url(article,:html)) %> </h3><br />
+		<h4><%= article.display_date.loc("%d. %B %Y") %></h4>
+	
+	<%= article_icon_for_list(article,{:class=>'title'}) %>   <%= "<p>" if startp -%><%= article.synopsis %><%= "</p>" if endp %>
+	<%= link_to("&gt; Lire la suite",formatted_article_url(article,:html)) %>
+	</div>
+<p>&nbsp;</p>
+
+</div>

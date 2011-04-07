@@ -1,0 +1,7 @@
+<h1><%= "Listing articles".t %> <%= "for category".t+" "+@category.name if params[:category_id] -%>
+</h1>
+<p>&nbsp</p>	
+<div id="articles_table">
+<%= render :partial=>'articles_list' %>
+</div>
+

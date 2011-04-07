@@ -1,0 +1,2 @@
+page.replace_html  'translation_activator', "Translator desactivated".t
+page.visual_effect :highlight, 'translation_activator'

@@ -1,0 +1,33 @@
+<% if  @tinymcelinks %>
+	<ul>
+		<li><%= link_to "Home".t,index_url %></li>
+	<% @pages.each do |page| %>
+		<li><%= link_to_function(page.title,"window.opener.document.getElementById('href').value='#{page_path(page)}';window.close()") %>
+				<%= get_page_attachments(page,false,true,true) %>
+				<%#  def get_page_attachments(page,with_edit_links=true, hide_dots=false,tinymce=false) %>
+					<%= get_sub_page_menu(page,false,true,nil,true)  %>
+					<%# def get_sub_page_menu(parent,show_first=true,with_attachments=false,css_class=nil,tinymce=false) %>
+					
+					
+		<%# link_to(page.title,page_path(page)) -%>
+		</li>
+	<% end %>
+	</ul>
+<%	
+else
+
+user_roles=session[:current_user_roles]||=[]
+cache_name="sitemap-"+session[:locale]+"-"+user_roles.join("_")
+# 
+#cache cache_name do %>
+<ul>
+	<li><%= link_to "Home".t,index_url %></li>
+<% @pages.each do |page| %>
+	<li><%= link_to(page.title,formatted_page_path(page,:html)) -%>
+	<%= get_page_attachments(page,false,true) %>
+		<%= get_sub_page_menu(page,false,true)  %>
+	</li>
+<% end %>
+</ul>
+
+<% end %>

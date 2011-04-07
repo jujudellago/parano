@@ -1,0 +1,29 @@
+<div id="pages">
+ <h2><%= "Update the pages positions for section".t+" \""+ @parent.title+"\"" %></h2>
+<div class="sortable_container">
+
+
+	<div id ="position_infos">
+		<!-- <p><%="Welcome page remains on first positon"[:welcome_page_remains_on_top]%></p> -->
+		<p><%="Drag & drop the other pages to updated their position".t %></p>
+	</div>
+<ul id="pages_container">
+  <% @pages.each do |page| %>
+	<%= render :partial => 'order_page', :locals=>{:page=>page} %>
+  <% end %>
+</ul>
+<div id="confirm_message" style="display:none"><%= "Positions Saved !".t %></div>
+<%= ajax_spinner_for "order_page", "banner-loader.gif" %>
+<div class="back_button"><%= link_to("Back to pages".t, pages_url) %></div>	
+
+<%= sortable_element('pages_container', :update => 'pages', :url => {:action => :update_positions, :parent_id=> @parent_id}, 
+	:before => "$('confirm_message').hide();$('order_page_spinner').show();",
+		#:complete => {visual_effect(:highlight, "pages_container"),visual_effect(:highlight, "pages_container") })
+	:complete =>"new Effect.Highlight('pages_container');$('confirm_message').show();new Effect.Highlight('confirm_message',{duration:3});new Effect.Fade('confirm_message');")
+	#:complete =>"new Effect.Highlight('pages_container');$('confirm_message').show();") 	
+	%>
+	
+		
+</div>
+
+</div>

@@ -1,0 +1,10 @@
+#page[@page.dom_id].visual_effect :highlight
+page[@page.dom_id].visual_effect :fold
+if @parent_id>0
+  if @parent.children.size<2
+    #page.alert('order_'+@parent.dom_id)
+    page['order_'+@parent.dom_id].visual_effect :fold
+  end
+end
+flash.discard
+

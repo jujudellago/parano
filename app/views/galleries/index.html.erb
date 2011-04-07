@@ -1,0 +1,56 @@
+
+<% if admin? %>
+<div style="float:right">
+<h4>&gt;&nbsp;<%= link_to_function 'New Gallery'[:new_gallery] do |page| 
+	page[:photo_form_container].toggle
+end %></h4>
+</div>
+<% end %>
+
+
+<h2><%= "Photo Galeries"[:photo_galeries] %></h2>
+
+
+<ul id="photos_list">
+<% for gallery in @galleries %>
+	<li class="gallery_item_li">
+		<h4><%= gallery.name %> <br /><small><i>(<%= gallery.photos_count %> <%= "pictures"[:pictures] %>)</i></small></h4>
+	<%# gallery_url gallery %>
+	<% 
+	if gallery.default_photo_id
+	photo=Photo.find(gallery.default_photo_id) 
+	fancy_images=false
+	if admin? || (browser_is? :ie)
+		fancy_images=false
+	end
+	
+	%>
+	<%= link_to(display_photo(photo,fancy_images),gallery_photos_path(gallery)) %>
+<%	elsif gallery.photos.size>0
+	photo=gallery.photos[0] %>
+	<%= link_to(display_photo(photo,fancy_images),gallery_photos_path(gallery)) %>
+	
+	
+	<% else %>
+	<%= link_to(image_tag('no-image.jpg'),gallery_photos_path(gallery)) %>
+	<% end %>
+	<% if admin? %><br />
+	<%= link_to 'Edit', edit_gallery_path(gallery),:class=>"admin_hover_links" %>
+	<%= link_to 'Destroy', gallery_path(gallery), :confirm => 'Are you sure?', :method => :delete ,:class=>"admin_hover_links"%>
+	<% end %>
+	</li>
+<% end %>
+</ul>
+
+
+<% if admin? %>
+<div id="photo_form_container"  style="display:none">
+<% form_for(:gallery, :url => galleries_path,:html => {:id=>'gallery_form' }) do |f| %>
+<%= render(:partial => '/galleries/form', :locals=>{ :f=>f})%>
+<% end %>
+
+<br />
+
+</div>
+<% end %>
+

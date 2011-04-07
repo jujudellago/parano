@@ -1,0 +1,34 @@
+<% if @items %>
+<% @page_title="Search results for".t+" <em>#{@query}</em>  <span class=\"small\">#{@items.total_hits} "+"hits".t+"</span>"  %>
+<h2><%= @page_title %></h2>
+<div class="contentText">
+
+ <%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
+<%= pagination_links(@pages, :params => { :query=> @query }) %>
+<%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
+
+<%= @items.inspect %>
+<%
+if (@items.size>0)
+	@items.each do |item| 
+		if item.can_be_viewed(session[:current_user_roles])
+			highlighted_title = item.highlight(@query, :field => :title, :num_excerpts => 1, :pre_tag => "<strong class=\"highlight\">", :post_tag => "</strong>")
+			highlighted_content=item.highlight(@query, :field => :body,:excerpt_length => 150, :num_excerpts => 1, :pre_tag =>  "<strong class=\"highlight\">", :post_tag => "</strong>") 		  
+		#	highlighted_content="#{highlighted_content.to_s.gsub!(/<[a-zA-Z\/][^>]*>/){}}"
+%>
+				<h4><%=item.title %></h4>
+				<p><%= highlighted_content %></p>
+			<p><%= link_to("View page".t,page_path(item)) %></p>
+			<hr />
+			<%
+		end
+
+	end
+else
+	%>
+	<h4>No match found</h4>
+	<%
+end
+%>
+</div>
+<% end %>

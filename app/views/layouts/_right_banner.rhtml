@@ -1,0 +1,15 @@
+
+<% unless @right_infos.nil? -%>
+<%= yield :rightbar -%>
+<% end -%>
+
+
+
+<% @cats=Category.find(:all, :order=>'position', :conditions=>'member=1') -%>
+<h2><%= "News".t %></h2>
+	<ul><% @cats.each do |category| -%>
+		<li><%= link_to(category.name,news_index_path(:category_permalink=>category.permalink)) %></li>
+	<% end -%>
+</ul>
+
+

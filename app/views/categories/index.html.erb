@@ -1,0 +1,32 @@
+<h2><%= "Listing categories".t %></h2>
+<div id="pages_editor_container">
+<table>
+  <tr>
+    <th><%= "Name".t %></th>
+    <th><%= "Homepage".t %></th>
+    <th><%= "Agenda".t %></th>
+    <th><%= "Member".t %></th>
+  </tr>
+  
+<% for category in @categories %>
+  <tr>
+
+    <td><%=h category.name %></td>
+	<!-- <td><%= link_to 'articles', category_articles_path(category) %></td> -->
+	<td><%= category.homepage ? "yes".t: "no".t %></td>
+	<td><%= category.agenda ? "yes".t: "no".t %></td>
+	<td><%= category.member ? "yes".t: "no".t %></td>
+    <td><%= link_to 'Show', category_path(category) %></td>
+    <td><%= link_to 'Edit', edit_category_path(category) %></td>
+
+    <td><%= link_to 'Destroy', category_path(category), :confirm => 'Are you sure?', :method => :delete %></td>
+
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New category', new_category_path %>
+
+</div>

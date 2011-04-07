@@ -1,0 +1,14 @@
+<title><%= @page_title ||=SITE_TITLE %></title>
+<% if @page -%>
+<meta name="description" content="<%= @page.def_description %>" />
+<meta name="keywords" content="<%= @page.def_keywords %>" />
+<% end -%>
+<link rel="shortcut icon" href="/picto_6d_64.ico" />
+<script src="http://www.google.com/jsapi?key=<%= GOOGLE_SEARCH_API_KEY %>" type="text/javascript"></script>
+<%= javascript_tag("google.load(\"prototype\", \"1.6.0.2\");\ngoogle.load(\"scriptaculous\", \"1.8.1\"); ") -%>
+<%# javascript_include_tag("http://ajax.googleapis.com/ajax/libs/prototype/1.6.2/prototype.min.js") %>
+<%#= javascript_include_tag("http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/scriptaculous.min.js") %>
+<%= javascript_include_tag("http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js") %>
+<%= javascript_include_merged :base %>
+<script src="/javascripts/lightview/js/lightview.js" type="text/javascript"></script>
+

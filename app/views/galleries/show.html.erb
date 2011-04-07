@@ -1,0 +1,23 @@
+<p>
+  <b>Name:</b>
+  <%=h @gallery.name %>
+</p>
+
+<p>
+  <b>Created at:</b>
+  <%=h @gallery.created_at %>
+</p>
+
+<p>
+  <b>Updated at:</b>
+  <%=h @gallery.updated_at %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @gallery.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_gallery_path(@gallery) %> |
+<%= link_to 'Back', galleries_path %>

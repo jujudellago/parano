@@ -1,0 +1,14 @@
+<%# page.enabled ? image_tag(CMS_ICONS['cfmd'],:id=>page.dom_id+"_enable_icon") : image_tag(CMS_ICONS['clx'],:id=>page.dom_id+"_enable_icon") -%>
+<% if page.parent %>
+<%= ajax_spinner_for page.dom_id+"_enable_page" %>
+    <% if page.enabled -%>
+	<%= link_to_remote(image_tag(CMS_ICONS['cfmd'],:id=>page.dom_id+"_enable_icon") , :url => disable_page_path(:id=>page.id), :method => :put,
+     						  :before => "$('#{page.dom_id}_enable_icon').hide();$('#{page.dom_id}_enable_page_spinner').show();") %>
+    <% else -%>
+	<%= link_to_remote(image_tag(CMS_ICONS['clx'],:id=>page.dom_id+"_enable_icon"),  :url => enable_page_path(:id=>page.id), :method => :put,
+     						  :before => "$('#{page.dom_id}_enable_icon').hide();$('#{page.dom_id}_enable_page_spinner').show();") %>
+	<% end -%>
+<% end %>
+
+	
+	

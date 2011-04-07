@@ -1,0 +1,13 @@
+<%= ajax_spinner_for article.dom_id+"_comment_article" %>
+    <% if article.with_comments -%>
+	<%= link_to_remote(image_tag(CMS_ICONS['comment'],:id=>article.dom_id+"_comment_icon") , :url => nocomments_article_path(:id=>article.id), :method => :put,
+     						  :before => "$('#{article.dom_id}_comment_icon').hide();$('#{article.dom_id}_comment_article_spinner').show();") %>
+
+    <% else -%>
+	<%= link_to_remote(image_tag(CMS_ICONS['no-comment'],:id=>article.dom_id+"_comment_icon"),  :url => withcomments_article_path(:id=>article.id), :method => :put,
+     						  :before => "$('#{article.dom_id}_comment_icon').hide();$('#{article.dom_id}_comment_article_spinner').show();") %>
+
+
+	<% end -%>
+	
+	

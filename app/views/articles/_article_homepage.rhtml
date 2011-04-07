@@ -1,0 +1,11 @@
+<%= ajax_spinner_for article.dom_id+"_homepage_article" %>
+    <% if article.inhompage -%>
+	<%= "yes".t %><br> <%= link_to_remote(image_tag("remove",:id=>article.dom_id+"_homepage_icon") , :url => offhomepage_article_path(:id=>article.id), :method => :put,
+     						  :before => "$('#{article.dom_id}_homepage_icon').hide();$('#{article.dom_id}_homepage_article_spinner').show();") %>
+
+    <% else -%>
+	<%= "no".t %><br><%= link_to_remote(image_tag("add",:id=>article.dom_id+"_homepage_icon"),  :url => onhomepage_article_path(:id=>article.id), :method => :put,
+     						  :before => "$('#{article.dom_id}_homepage_icon').hide();$('#{article.dom_id}_homepage_article_spinner').show();") %>
+
+
+	<% end -%>

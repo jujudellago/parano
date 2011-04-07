@@ -1,0 +1,18 @@
+<h1>Editing attachments</h1>
+<%= error_messages_for :attachment %>
+<%= start_form_container %>
+<% form_for(:attachment, :url => page_attachment_path(@attachment), :html => { :method => :put , :id=>'attachment_form'}) do |f| %>
+	<%= hidden_field_tag :default_position, @attachment.position %>  
+	<%= hidden_field_tag :position %>
+<%= render(:partial => 'attachment_form', :locals=>{ :f=>f})%>
+	<%= fieldset_legend("Action".t) %>
+	<%= submit_tag "Save".t, :class=>'fancy_ok' %> 
+<% end %>
+	<%= button_to 'Back'.t, page_attachments_path, :class=>'fancy_nok', :method=>:get %>
+<%= fieldset_end %>
+
+
+<%= render(:partial => 'upload_icon_form')%>
+<%= render(:partial => 'upload_file_form')%>
+<%= upload_frame %>
+<%= end_form_container %>

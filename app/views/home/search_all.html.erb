@@ -1,0 +1,47 @@
+<% @page_title="Search results for".t+" <em>#{@query}</em>"  %>
+<h2><%= @page_title %></h2>
+<div class="contentText">
+
+<%# link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
+<%# pagination_links(@pages, :params => { :query=> @query }) %>
+<%# link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
+
+
+<%
+mt=0
+if (@matches.size>0)
+	@matches.each do |item| 
+		if item[:model] && item[:model]=="Page" 
+			page=Page.find(item[:id])
+			if page.can_be_viewed(session[:current_user_roles])	%>
+				<h4><%= page.title %></h4>
+				<p><%=  page.description %></p>
+				<p><%= link_to("View page".t,page_path(page)) %></p>
+				<hr />
+		    <% 
+			mt=mt+1
+			end 
+		 else 
+			article=Article.find(item[:id])
+			if article.can_be_viewed(session[:current_user_roles])	%>
+				<h4><%= article.title %></h4>
+				<p><%=  article.synopsis %></p>
+				<p><%= link_to("View article".t,article_path(article)) %></p>
+				<hr />		
+			<%
+			mt=mt+1
+			end
+		end	
+	end%>
+<%else
+	%>
+	<h4><%= "No match found".t %></h4>
+	<%
+end
+
+if mt>0 %>
+<%=  "<span class=\"small\">#{mt} "+"hits".t+"</span>" %>
+<% end %>
+</div>
+
+

@@ -1,0 +1,26 @@
+<% if attachedfile && !no_attachedfile%>
+	<div id="attachedfile_attachedfile" class="attachedfile">
+		<% unless attachedfile.content_type.nil? %>
+		<%= getFile_type_icon(attachedfile.public_filename) %>
+	<% end %>
+		<% unless attachedfile.filename.nil? %>
+	<%= link_to(attachedfile.filename,attachedfile.public_filename)  %>
+	
+	
+	
+		<div class="attachedfile_link">
+		<%= link_to_remote("Delete".t+image_tag(CMS_ICONS['delete']), {:url => page_attachment_attachedfile_path(:id=> attachedfile.id), :method => :delete, :confirm => "are you sure?"}) %>
+		</div>
+		<% end %>
+	</div>
+<% else %>
+	<div id="no_attachedfile" class="attachedfile_image">
+<h3><%= "No file uploaded yet".t %></h3>
+<div class="attachedfile_link">
+		<%= button_to_function 'Select a file'.t, :class=>'fancy_upload' do |page| 
+			#page.alert('show upload file')
+			page[:attachedfiles_form].show
+		end %>
+		</div>
+	</div>
+<% end %>

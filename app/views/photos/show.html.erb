@@ -1,0 +1,5 @@
+<%= image_tag(@photo.public_filename) %><br />
+<% if admin? %>
+<%= link_to 'Edit', gallery_edit_photo_path(:gallery_id=>@gallery, :id=>@photo) %> |
+<% end %>
+<%= link_to 'Back', gallery_path(:id=>@gallery) %>

@@ -1,0 +1,17 @@
+
+<div><label for="page_title"><%= "Title".t %></label><br /><%= f.text_field :title, 	:size => 60 %>       </div>
+<div><label for="keywords"><%= "Keywords".t %></label><br /><%= f.text_field :keywords, :size => 60 %>       </div>
+<div><label for="description"><%= "Description".t %></label><br /><%= f.text_field :description, :size => 60 %> </div>
+<div><label for="content"><%= "Content".t %></label><br /><%= f.text_area :body,  {:rows => 20, :cols => 80, :class => 'input-default tiny_mce' } %></div>
+<%= fieldset_end %>
+
+
+
+<%= fieldset_legend("Visibility".t) %>
+<div><label for="page_enabled"><%= "Enabled".t %> </label><%= f.check_box :enabled %> </div>
+<%= fieldset_end %>
+
+
+
+
+

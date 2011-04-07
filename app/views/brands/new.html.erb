@@ -1,0 +1,13 @@
+<h1>New brand</h1>
+<%= start_form_container %>
+<%= error_messages_for :brand %>
+
+<% form_for(@brand) do |f| %>
+ <%= render :partial=>'brand_form', :locals=>{:f=>f} %>
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+<%= end_form_container %>
+<%= link_to 'Back', brands_path %>
