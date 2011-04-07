@@ -82,6 +82,7 @@ task :after_update_code, :roles => [:app] do
   run <<-EOF
     ln -s #{shared_path}/public/photos #{latest_release}/public/photos && rm -Rf #{latest_release}/public/uploaded_images && ln -s #{shared_path}/public/uploaded_images #{latest_release}/public/uploaded_images && ln -s #{shared_path}/vendor/rails #{latest_release}/vendor/rails && cd #{latest_release} &&  rake asset:packager:build_all
   EOF
+  
 end
 
 #    ln -s #{shared_path}/public/photos #{latest_release}/public/photos && rm -Rf #{latest_release}/public/uploaded_images && ln -s #{shared_path}/public/uploaded_images #{latest_release}/public/uploaded_images && ln -s #{shared_path}/vendor/rails #{latest_release}/vendor/rails && cd #{latest_release} &&  rake asset:packager:build_all

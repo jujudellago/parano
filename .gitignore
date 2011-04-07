@@ -8,8 +8,6 @@ index/*
 public/tests/*
 vendor/rails/*
 vendor/gems/*
-public/images/icons
-public/images/flags
 public/uploads/*
 test/fixtures/*
 test/unit/*
@@ -21,6 +19,9 @@ db/schema.rb
 db/data.yml
 doc/api/*
 public/photos
+public/photos/*
+public/uploaded_images
+public/uploaded_images/*
 export_devel.sql
 parano_photos.tgz
 gitadd.sh
