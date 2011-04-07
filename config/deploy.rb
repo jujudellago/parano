@@ -1,4 +1,3 @@
-set :application, "parano"
 
 
 #set :svn, '/home/jujudell/bin/svn'
@@ -13,17 +12,36 @@ set :application, "parano"
 
 set :scm, :git
 set :branch, "master"
+
+
+set :deploy_to, "/home/jujudell/apps/parano"
+set :application, "parano.yabo-sites.com"
+
+
+role :web, "jujudell@174.122.37.162"
+role :app, "jujudell@174.122.37.162"
+role :db,  "jujudell@174.122.37.162", :primary => true
+
+
+default_run_options[:pty] = true 
+
+# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+
+set :use_sudo, false
+set :keep_releases, 4
+
+
+#set :scm_command, "/usr/bin/git"
+#set :local_scm_command, "/usr/local/bin/git"
+
+
+set :branch, "master"
 set :repository, "git@github.com:jujudellago/parano.git"
 set :deploy_via, :remote_cache
 
 
 
-
-set :domain, "jujudellago.com"
-#set :deploy_to, "/home/jujudell/apps/#{application}"
-#set :applicationdir, "/home/jujudell/apps/#{application}"
-set :deploy_to, "/home/jujudell/etc/rails_apps/#{application}"
-set :applicationdir, "/home/jujudell/etc/rails_apps/#{application}"
+set :domain, "yabo-sites.com"
 
 set :chmod755, "app config db lib public vendor script script/* public/disp*"  	# Some files that will need proper permissions
 
@@ -67,23 +85,24 @@ task :after_update_code, :roles => [:app] do
 end
 
 #    ln -s #{shared_path}/public/photos #{latest_release}/public/photos && rm -Rf #{latest_release}/public/uploaded_images && ln -s #{shared_path}/public/uploaded_images #{latest_release}/public/uploaded_images && ln -s #{shared_path}/vendor/rails #{latest_release}/vendor/rails && cd #{latest_release} &&  rake asset:packager:build_all
-
-
-##########
-# Bluehost specific
-# (since you can't restart the web server on shared servers
-# redefine deploy:start, deploy:stop, and deploy:restart to do nothing
-##########
 namespace :deploy do
-  task :restart do
-    # run "mongrel_rails cluster::restart -C #{mongrel_config}"
-  end
+ task :start do ; end
+ task :stop do ; end
+ task :restart, :roles => :app, :except => { :no_release => true } do
+   run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+ end
+end
 
-  task :start do
-    # run "mongrel_rails cluster::start -C #{mongrel_config}"
-  end
 
-  task :stop do
-    # run "mongrel_rails cluster::stop -C #{mongrel_config}"
+
+namespace :rake do
+  task :show_tasks do
+    run("cd #{deploy_to}/current; /usr/bin/rake -T")
   end
+end
+
+
+desc "migrate database"
+task :migrate_db, :roles => [:app] do
+  run("cd #{deploy_to}/current;  rake db:migrate RAILS_ENV=production")
 end
