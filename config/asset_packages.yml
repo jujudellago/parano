@@ -1,18 +1,29 @@
 --- 
 javascripts: 
 - base: 
-  - effects_core
-  - effects_slide
-  - supersized_3
-  - application
   - lowpro
   - effects
   - dragdrop
   - controls
+- base_jquery: 
+  - application
+  - effects_core
+  - effects_slide
+  - supersized_3
+  - lowpro
+  - effects
+  - dragdrop
+  - controls  
 #  - previewbubble/previewbubble
 #  - reflection
   
 stylesheets: 
+- parano_admin:
+  - flash
+  - parano
+  - system
+  - fancytable
+  - lightview/css/lightview        
 - parano:
   - supersized 
   - flash

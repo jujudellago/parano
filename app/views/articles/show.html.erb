@@ -7,9 +7,10 @@
 	<%= @article.body %>
 <%= "</p>" unless @article.body.starts_with?("<p>") %>
 	<div class="back"><%= link_to("&lt; #{"back".t.downcase}",request.env['HTTP_REFERER']) %></div>
-	<%= link_to_print(article_url(@article,:print=>'yes')) unless @print_page %>
+	<%#= link_to_print(article_url(@article,:print=>'yes')) unless @print_page %>
 	<% if (@article.with_comments && !@print_page) %>
 	<%= link_to_comment(@article.title,article_url(@article))  %>
 	<% end %>
+	<div class="clear">&nbsp;</div>
 </div>
 	

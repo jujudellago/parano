@@ -8,7 +8,11 @@
 <%= javascript_tag("google.load(\"prototype\", \"1.6.0.2\");\ngoogle.load(\"scriptaculous\", \"1.8.1\"); ") -%>
 <%# javascript_include_tag("http://ajax.googleapis.com/ajax/libs/prototype/1.6.2/prototype.min.js") %>
 <%#= javascript_include_tag("http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/scriptaculous.min.js") %>
-<%= javascript_include_tag("http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js") %>
+<% if  logged_in? %>
 <%= javascript_include_merged :base %>
+<%- else -%>
+<%= javascript_include_tag("http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js") %>
+<%= javascript_include_merged :base_jquery %>
+<%- end -%>
 <script src="/javascripts/lightview/js/lightview.js" type="text/javascript"></script>
 

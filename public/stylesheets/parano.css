@@ -11,7 +11,9 @@ Note : Do not remove the credit links from the template
 body {/*background:url(/images/bg_damier.gif) repeat;*/ 
 	background:#000;
 	font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; color:#666666;}
-.clear {clear:both;}
+	
+.clear {clear:both; }
+.clear:after {content: ".";display: block;clear: both;visibility: hidden;line-height: 0;height: 0;}
 #wrap { width:923px; margin:25px auto 25px auto;opacity: 1.0; border:3px solid #000;}
 #wrap #header #sitename {color: #666; font-family: Helvetica, "Times New Roman", Times, serif;
 font-size: 28px; font-weight: normal;	display: block;	padding-top: 60px;	text-align: center; padding-right: 50px;}
@@ -57,7 +59,8 @@ font-size: 28px; font-weight: normal;	display: block;		text-align: center; paddi
 	padding:40px 5px 10px 5px;
 }
 #browse div {text-align:center;}
-#browse .subhead{font-family:Helvetica, "Times New Roman", Times, serif; font-weight:normal; padding-left:25px; font-size:26px;  display:block; margin-bottom:35px;
+#browse .subhead{
+	padding-left:25px; font-size:26px;  display:block; margin-bottom:35px;
 
 	padding-bottom: 10px;
 
@@ -73,11 +76,16 @@ font-size: 28px; font-weight: normal;	display: block;		text-align: center; paddi
 }
 #browse li.brand a , #browse li.brand a:hover, #browse li.brand a:active { font-size:0.8em;display:block; height:96px; text-decoration:none; color:#fff;}
 
-#menu h2 {display:block;  border-bottom:solid 1px #f7f7f7; padding:5px; font-family:Helvetica, "Times New Roman", Times, serif; font-size:22px; font-weight:normal;}
+#menu h2 {display:block;  padding:5px; font-size:22px; font-weight:normal;}
 #wrap #page #menu #sidemenu { padding:5px 45px 0px 40px;	display: block;}
 #sidemenu ul { display:block;list-style:none;}
-#sidemenu li {display:block; height:26px; border-top:thin 1px #FFFFff;}
-#sidemenu a, #sidemenu a:visited, #sidemenu a:active {display:block; height:20px; padding:5px 5px 0px 5px; color:#efefef; text-decoration:none; border-bottom:solid 1px #DFCD95;}
+#sidemenu li {display:block; height:28px; border-top:thin 1px #FFFFff; padding-bottom:2px;}
+#sidemenu a, #sidemenu a:visited, #sidemenu a:active {
+	display:block; height:20px; 
+	padding:10px 10px 0px 5px; 
+	color:#efefef; text-decoration:none; 
+	/*border-bottom:solid 1px #DFCD95;*/
+	}
 #sidemenu a:hover{background:#dfe6ee;color:#666;}
 #sidemenu .active a,#sidemenu .active a:visited, #sidemenu .active a:active, #sidemenu .active a:hover {background:#dfe6ee;color:#666;}
 
@@ -102,7 +110,8 @@ font-size: 28px; font-weight: normal;	display: block;		text-align: center; paddi
 	padding-top:30px;
 }
 .relatedLinks h3{
-	 border-bottom:solid 1px #f7f7f7; padding:5px; font-size:22px; font-weight:normal;
+	/* border-bottom:solid 1px #f7f7f7; */
+	padding:5px; font-size:22px; font-weight:normal;
 }
 
 .entry {
@@ -119,9 +128,14 @@ margin-bottom:15px;
 }
 
 .entrybody ,.contentText{
-background:#000 url(/images/db_first_bg.gif) left top no-repeat;
-margin:0;
-padding:16px;
+/*background:#000 url(/images/db_first_bg.gif) left top no-repeat;*/
+
+	margin:0;
+	padding:0 16px 16px 16px;
+/*	-moz-box-shadow: 3px 3px 4px #fff;
+ 	-webkit-box-shadow: 3px 3px 4px #fff;*/
+/* 	box-shadow: 1px 2px 3px #efefef;*/
+
 }
 
 .entrybody p {
@@ -172,3 +186,8 @@ color:#81969A;
 	overflow:none;
 }
 
+h1, h2 , h3,  #menu h2 ,
+.relatedLinks h4 {
+	 font-family: 'Rock Salt', arial, serif; 
+/*	 font-family: 'Permanent Marker', arial, serif; */
+}

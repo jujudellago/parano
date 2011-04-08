@@ -44,7 +44,7 @@ jQuery(document).ready(function(){
 		pause_hover: 0,
 		slide_counter: 0,
 		slide_captions: 0,
-		slide_interval: 6000,
+		slide_interval: 9000,
 		slides : imagesArray
 	};
     jQuery('#supersized').supersized();

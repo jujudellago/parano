@@ -33,7 +33,9 @@ lncolor=lncolors[idx]
 </head>
 
 <body>
+	<% unless  logged_in? %>
 		<div id="loading">&nbsp;</div>
+	<%- end -%>
 <div id="content-wrapper">
 <div id="wrap">
 	<% unless @no_fancy_flash -%>
@@ -69,7 +71,7 @@ lncolor=lncolors[idx]
 	<%= yield :menu_center_1 -%>
 	<%#<iframe src="http://www.facebook.com/widgets/like.php?href=http://www.parano-shop.ch"     scrolling="no" frameborder="0"     style="border:none; width:250px; height:280px"></iframe>%>
 	<div class="white">
-<iframe src="http://www.facebook.com/plugins/likebox.php?id=120735897963225&amp;width=180&amp;connections=10&amp;stream=true&amp;header=true&amp;height=587" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:182px; height:587px;" allowTransparency="true"></iframe>
+<!-- <iframe src="http://www.facebook.com/plugins/likebox.php?id=120735897963225&amp;width=180&amp;connections=10&amp;stream=true&amp;header=true&amp;height=587" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:182px; height:587px;" allowTransparency="true"></iframe> -->
 </div>
 	</div>
 </div>
@@ -81,29 +83,28 @@ lncolor=lncolors[idx]
 
 <div id="browse">
 <h2 class="subhead">Official Dealer</h2>
-<% @brands=Brand.find(:all) %>
-<% @cols=Array.new %>
-<% @cols[0]=Array.new %>
-<% @cols[1]=Array.new %>
-<% @cols[2]=Array.new %>
-<% @cols[3]=Array.new %>
-<% @cols[4]=Array.new %>
+<% @brands=Brand.find(:all)
+ @cols=Array.new
+ @cols[0]=Array.new 
+ @cols[1]=Array.new 
+ @cols[2]=Array.new 
+ @cols[3]=Array.new 
+ @cols[4]=Array.new %>
 
-<% @brands.in_groups_of(5) do | row_brands |%>
-	<% j=0 %>
-	<% for brand in row_brands %>
-		<% @cols[j]<<brand unless brand.nil?%>
-	<% j=j+1 %>
-	<% end %>
-<% end %>
-
-<% for col in @cols  %>
+<%- @brands.in_groups_of(5) do | row_brands |-%>
+	<%- j=0 -%>
+	<%- for brand in row_brands -%>
+		<%- @cols[j]<<brand unless brand.nil?-%>
+	<%- j=j+1 -%>
+	<%- end -%>
+<%- end -%>
+<%- for col in @cols  -%>
 <div class="browsecat">
   <ul>
-		<% for brand in col %>
+		<%- for brand in col -%>
 			<li class="brand"><%= image_tag(brand.icon.public_filename(:thumb)) unless brand.icon.nil? %><br />
 				<%= link_to(brand.url.remove_http,brand.url,:target=>'_blank',:class=>'previewlink')unless brand.url.nil? %></li>
-		<% end %>
+		<%- end -%>
   </ul>
 </div>
 <% end %>
@@ -113,7 +114,7 @@ lncolor=lncolors[idx]
 <div id="footer">
 <div id="footercontent">
 <p>parano-shop.ch &copy; All Rights Reserved</p>
-<p id="credit">design by <a href="http://www.yabo-concept.ch" target="_blank">Yabo-concept</a> | design original par <a href="http://www.ramblingsoul.com"  target="_blank">www.ramblingsoul.com</a></p>
+<p id="credit">design by <a href="http://www.yabo-concept.ch" target="_blank">Yabo-concept</a></p>
 
 </div>
 </div>
@@ -132,6 +133,8 @@ pageTracker._trackPageview();
 } catch(err) {}</script>
 <% end %>
 </div>
+<% unless  logged_in? %>
 	<div id="supersized"></div>
+<%- end -%>
 </body>
 </html>

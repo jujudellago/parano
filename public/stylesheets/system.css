@@ -31,7 +31,7 @@ div.form-container div.controlset label,
 div.form-container div.controlset input { display: inline; float: none; }
 div.form-container div.controlset div { margin-left: 170px; }
 div.form-container div.buttonrow { margin-left: 180px; }
-div.form-container div {padding:5px;padding-top:20px;clear:both;}
+div.form-container div {padding:5px;padding-top:20px;}
 
 #flash_message{
 	width:400px;
@@ -329,7 +329,7 @@ td.page_icon img{
 
 #pages_editor_container fieldset{
 	padding:0px;
-	width:600px;
+	width:550px;
 	margin-bottom:30px;
 	padding-bottom:20px;
 	border:1px solid #bad482;
@@ -345,7 +345,7 @@ td.page_icon img{
 
 
 #pages_editor_container{
-	width:620px;
+	width:550px;
 	margin-top:20px;
 	padding-left:0px;
 	/*	border:1px solid #666;*/
