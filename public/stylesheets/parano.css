@@ -33,7 +33,7 @@ font-size: 28px; font-weight: normal;	display: block;		text-align: center; paddi
 	width:269px; }
 #page #content {margin:20px 0px 0px 265px; padding:0px 20px 0px 5px;}
 #content p {line-height:22px; margin:0px 0px 25px 0px;}
-#content h2 {font-family:Helvetica, "Times New Roman", Times, serif; font-weight:normal; font-size:26px; display:block; margin-bottom:20px;}
+#content h2 {  display:block; margin-bottom:20px;}
 
 
 
