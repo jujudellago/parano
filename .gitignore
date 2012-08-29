@@ -12,6 +12,7 @@ public/uploads/*
 test/fixtures/*
 test/unit/*
 config/database.yml
+config/database.example
 sql/
 config/initializers/mailer.rb 
 doc/plugins
