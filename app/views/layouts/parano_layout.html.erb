@@ -83,7 +83,7 @@ lncolor=lncolors[idx]
 
 <div id="browse">
 <h2 class="subhead">Official Dealer</h2>
-<% @brands=Brand.find(:all)
+<% @brands=Brand.find(:all,:order=>'name')
  @cols=Array.new
  @cols[0]=Array.new 
  @cols[1]=Array.new 
